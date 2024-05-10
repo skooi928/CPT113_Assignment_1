@@ -7,7 +7,13 @@
 #include "receipt.h"
 using namespace std;
 
-// No default constructor is allowed, since there must be no user without username and password.
+// Default constructor
+User :: User(){
+    username = "";
+    password = "";
+    role = "";
+}
+
 // Constructor, to create user object, so they can access to the program.
 User :: User(string userN, string pw, string r){
     username = userN;
@@ -56,30 +62,44 @@ void User :: signUP(int r){
         // Check if it is already in the database
         fstream userdata((role + ".txt"), ios::in);
         string userN, pw;
-        while(userdata >> userN >> pw){
-            if(newUsername == userN){
-                cout << "This username has been used! Please try a new one." << endl;
-            }else if(newUsername == userN && newPassword == pw){
-                cout << "This account has already existed. Please go to login!" << endl;
-                noAccount = 0;
-            }else{
-                // Save new user information to a text file
-                fstream userdata((role + ".txt"), ios::app);
-                if (!userdata) {
-                    cout << "Error: Unable to open file." << endl;
+        if(!(userdata >> userN)){
+            fstream userdata((role + ".txt"), ios::app);
+            // Writing the data to respective .txt file
+            userdata << newUsername << " " << newPassword << endl;
+            cout << "User signed up successfully." << endl;
+            userdata.close();
+            cout << "Your account is successfully created." << endl;
+            noAccount = 0;
+        }else{
+            fstream userdata((role + ".txt"), ios::in);
+            while(userdata >> userN >> pw){
+                if(newUsername == userN){
+                    cout << "This username has been used! Please try a new one." << endl;
+                }else if(newUsername == userN && newPassword == pw){
+                    cout << "This account has already existed. Please go to login!" << endl;
+                    noAccount = 0;
                 }else{
-                    // Writing the data to respective .txt file
-                    userdata << newUsername << " " << newPassword << endl;
-                    cout << "User signed up successfully." << endl;
-                    userdata.close();
+                    // Save new user information to a text file
+                    fstream userdata((role + ".txt"), ios::app);
+                    if (!userdata) {
+                        cout << "Error: Unable to open file." << endl;
+                    }else{
+                        // Writing the data to respective .txt file
+                        userdata << newUsername << " " << newPassword << endl;
+                        cout << "User signed up successfully." << endl;
+                        userdata.close();
+                    }
+                    cout << "Your account is successfully created." << endl;
+                    noAccount = 0;
+                    break;
                 }
-                cout << "Your account is successfully created." << endl;
-                noAccount = 0;
             }
         }
     }
 }
 
+Staff :: Staff() : User(){};
 Staff :: Staff(string userN, string pw) : User(userN, pw, "staff"){};
 
+Customer :: Customer() : User(){};
 Customer :: Customer(string userN, string pw) : User(userN, pw, "customer"){};

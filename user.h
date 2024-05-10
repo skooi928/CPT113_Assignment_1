@@ -12,8 +12,9 @@ class User{
         string username;
         string password;
         string role;
-        Service service;
     public:
+        // Default constructor
+        User();
         // Constructor
         User(string , string , string);
         // Login function
@@ -24,6 +25,8 @@ class User{
 
 class Staff : public User{
     public:
+        // Default constructor
+        Staff();
         // Constructor
         Staff(string, string);
         // Staff UI
@@ -35,10 +38,9 @@ class Staff : public User{
 };
 
 class Customer : public User{
-    private:
-        Pastry cookie, cake;
-        Rating rate;
     public:
+        // Default constructor
+        Customer();
         // Constructor
         Customer(string, string);
         // Customer UI (menu)

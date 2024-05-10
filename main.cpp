@@ -24,6 +24,7 @@ int main(){
         // Deciding which user role to give
         if(choice1 == 1){
             if(choice2 == 2){
+                user = new Staff();
                 // staff SIGNUP
                 user->signUP(choice1);
             }else{
@@ -38,6 +39,7 @@ int main(){
             }
         }else if(choice1 == 2){
             if(choice2 == 2){
+                user = new Customer();
                 // customer SIGNUP
                 user->signUP(choice1);
             }else{
@@ -53,7 +55,7 @@ int main(){
         }else{
             cout << "Incorrect Input! Only 1 or 2 is accepted. Please try again!" << endl;
         }
-        if(choice1 == 1 || choice1 == 2){
+        if((choice1 == 1 || choice1 == 2) && choice2 != 2){
             bool notLogin;
             user->login(notLogin);
             // User doesn't have any account or record, ask them to sign up
