@@ -15,20 +15,17 @@ class User{
     public:
         // Default constructor
         User();
-        // Constructor
-        User(string , string , string);
         // Login function
-        void login(bool&);
+        void login(int, int&);
         // Sign up function
         void signUP(int);
+        void logOut(User*);
 };
 
 class Staff : public User{
     public:
         // Default constructor
         Staff();
-        // Constructor
-        Staff(string, string);
         // Staff UI
 
         // Inventory access (Special for staff only)
@@ -41,8 +38,6 @@ class Customer : public User{
     public:
         // Default constructor
         Customer();
-        // Constructor
-        Customer(string, string);
         // Customer UI (menu)
 
         // Order
