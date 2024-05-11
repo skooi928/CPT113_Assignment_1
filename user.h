@@ -5,6 +5,7 @@
 #include "pastry.h"
 #include "rating.h"
 #include "receipt.h"
+#include "view.h"
 using namespace std;
 
 class User{
@@ -12,9 +13,15 @@ class User{
         string username;
         string password;
         string role;
+        // Service service;
+        View UI;
     public:
         // Default constructor
         User();
+        // Main Menu UI
+        void mainmenu(int&);
+        // Login/Signup UI
+        void logSign(int&);
         // Login function
         void login(int, int&);
         // Sign up function

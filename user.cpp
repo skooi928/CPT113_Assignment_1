@@ -5,6 +5,7 @@
 #include "pastry.h"
 #include "rating.h"
 #include "receipt.h"
+#include "view.h"
 using namespace std;
 
 // Default constructor
@@ -12,6 +13,15 @@ User :: User(){
     username = "";
     password = "";
     role = "";
+}
+
+// Main Menu UI
+void User :: mainmenu(int& choice){
+    UI.start(choice);
+}
+
+void User :: logSign(int& choice){
+    UI.accountCheck(choice);
 }
 
 // Login function
