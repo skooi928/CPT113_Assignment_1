@@ -10,8 +10,9 @@ using namespace std;
 int main(){
     // Program continuation
     char cont = 'y';
-    bool restart, backMainMenu = 1;
+    bool restart = 1, backMainMenu = 1;
     while(cont == 'y' || cont == 'Y'){
+        restart = 1; backMainMenu = 1;
         int choice1, choice2, notLogin = 2;
         // Using pointer to allocate memory because we don't know if the user is staff or customer
         User* user = nullptr;
