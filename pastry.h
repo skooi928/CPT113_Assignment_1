@@ -1,18 +1,18 @@
 #ifndef PASTRY_H
 #define PASTRY_H
-
-#include "rating.h"
-
-// Forward declaration
-class Rating;
+#include <string>
+using namespace std;
 
 class Pastry{
     private:
-        float price;
-        int amount;
-        Rating rate;
+        string type;
+        string flavour;
+        float priceperweight;
+        float piece;
+        float weight;
+        static float totalPrice;
     public:
-        
+
 };
 
 #endif
