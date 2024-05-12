@@ -4,9 +4,15 @@
 
 class Cart{
     private:
-        Pastry* pastryList;
+        Pastry* inCartItem;
+        int amount;
     public:
-        
+        Cart();
+        ~Cart();
+        // Add cart
+        void addToCart(Pastry);
+        int getAmount() const{return amount;};
+        Pastry* getInCartItem() const;
 };
 
 #endif

@@ -32,6 +32,7 @@ class Customer : public User{
         Customer();
         bool login(string, string) override;
         bool signUP(string, string) override;
+        Cart& getCart(){return shopcart;};
 };
 
 #endif

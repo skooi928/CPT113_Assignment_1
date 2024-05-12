@@ -5,8 +5,18 @@
 class Inventory{
     private:
         Pastry* pastryList;
+        int totalItemNo;
     public:
-        
+        // Constructor
+        Inventory();
+        //Destructor
+        ~Inventory();
+        // Read all the stock in the inventory.txt
+        // and update it to the pastrylist of Inventory
+        void read();
+        Pastry* getPastryList() const;
+        int getItemNumber() const;
+        void write();
 };
 
 #endif

@@ -55,10 +55,12 @@ bool Customer :: login(string userN, string pw){
     fstream customerFile;
     customerFile.open("customer.txt", ios::in);
     string u, p;
-    while(customerFile >> u >> p){
+    int c;
+    while(customerFile >> u >> p >> c){
         if(userN == u && pw == p){
             username = userN;
             password = pw;
+            purchaseCount = c;
             customerFile.close();
             return true;
         }
@@ -69,19 +71,21 @@ bool Customer :: login(string userN, string pw){
 
 bool Customer :: signUP(string newUsername, string newPassword){
     fstream customerFile;
-    customerFile.open("staff.txt", ios::in);
+    customerFile.open("customer.txt", ios::in);
     string u, p;
-    while(customerFile >> u >> p){
+    int c;
+    while(customerFile >> u >> p >> c){
         if(newUsername == u){
             return false;
         }
     }
     customerFile.close();
-    customerFile.open("staff.txt", ios::app);
+    customerFile.open("customer.txt", ios::app);
     // Writing the data to respective .txt file
-    customerFile << newUsername << " " << newPassword << endl;
+    customerFile << newUsername << " " << newPassword << " " << 0 << endl;
     username = newUsername;
     password = newPassword;
+    purchaseCount = 0;
     customerFile.close();
     return true;
 }

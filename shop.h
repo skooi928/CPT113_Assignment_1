@@ -3,6 +3,7 @@
 #include "user.h"
 #include "view.h"
 #include "inventory.h"
+#include "pastry.h"
 
 class Shop{
     private:
@@ -24,6 +25,8 @@ class Shop{
         int staffMenu();
         // Customer Menu
         int customerMenu();
+        // Customer Payment Menu
+        // int customerPayment();
 };
 
 #endif

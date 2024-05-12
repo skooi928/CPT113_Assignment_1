@@ -42,6 +42,10 @@ void Shop :: start(){
     }
 }
 
+// void Shop :: writeInventory(){
+
+// }
+
 int Shop :: staffLogSign(){
     user = new Staff();
     int choice, returnChoice;
@@ -129,5 +133,40 @@ int Shop :: staffMenu(){
 }
 
 int Shop :: customerMenu(){
-    return 1;
+    Pastry selectedPastry;
+    int choice, selectItem, buyMethod, viewCartOption;
+    float piece, weight;
+    while(true){
+        choice = UI.customerMenuDisplay();
+        switch(choice){
+            case 0:
+                return 0;
+                break;
+            case 1:
+                selectItem = UI.customerFoodMenuDisplay(inventory);
+                buyMethod = UI.customerFoodBuyMethod();
+                selectedPastry = inventory.getPastryList()[selectItem-1];
+                if(buyMethod == 1){
+                    piece = UI.customerBuyByPiece(selectedPastry);
+                    selectedPastry.setPiece(piece);
+                }else if(buyMethod == 2){
+                    weight = UI.customerBuyByWeight(selectedPastry);
+                    selectedPastry.setWeight(weight);
+                }
+                // Reduce inventory
+                inventory.getPastryList()[selectItem-1] -= selectedPastry;
+                // Add to Cart
+                static_cast<Customer*>(user)->getCart().addToCart(selectedPastry);
+                break;
+            case 2:
+                viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
+                if(viewCartOption == 1){ // Delete item
+
+                }else if(viewCartOption == 2){ // Payment
+
+                }// else will straight continue
+                break;
+        }
+    }
+    return 0;
 }

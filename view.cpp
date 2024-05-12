@@ -1,4 +1,6 @@
 #include "view.h"
+#include "inventory.h"
+#include "pastry.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -12,6 +14,27 @@ bool View :: validateInput(int userInput, int min, int max){
         cout << endl;
         return true;
     }
+}
+
+bool View :: validatePieceAndWeight(float userInput, float max){
+    if(userInput > 0.0 && userInput <= max){
+        return false;
+    }else{
+        cout << endl;
+        cout << "ERROR: The highest amount of this item we have is " << max << "." << endl;
+        cout << endl;
+        return true;
+    }
+}
+
+bool View :: validateOutofStock(int userInput, const Inventory &inventory){
+    Pastry* pastryList = inventory.getPastryList();
+    if(pastryList[userInput-1].getPiece() <= 0){
+        cout << endl;
+        cout << "Error! You can't choose item that is out of stock!" << endl;
+        return true;
+    }
+    return false;
 }
 
 int View :: mainmenu(){
@@ -51,12 +74,24 @@ int View :: staffMenuDisplay(){
         cout << endl;
         cout << "Staff" << endl;
         cout << "0. Exit" << endl;
-        cout << "1. " << endl;
-        cout << "2. " << endl;
-        cout << "3. " << endl;
+        cout << "1. Inventory" << endl;
         cout << "Your choice: ";
         cin >> choice;
-    }while(validateInput(choice, 0, 3));
+    }while(validateInput(choice, 0, 1));
+    return choice;
+}
+
+int View :: customerMenuDisplay(){
+    int choice;
+    do{
+        cout << endl;
+        cout << "Customer" << endl;
+        cout << "0. Exit" << endl;
+        cout << "1. Menu" << endl;
+        cout << "2. Cart" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 0, 2));
     return choice;
 }
 
@@ -94,4 +129,85 @@ void View :: successLogin(string username){
 void View :: successSignUP(string username){
     cout << endl;
     cout << "Sign up successfully. Welcome " << username << endl;
+}
+
+int View :: customerFoodMenuDisplay(const Inventory &inventory){
+    int choice;
+    int totalItemNumber;
+    do{
+        cout << endl;
+        cout << "Food Menu:" << endl;
+        Pastry* pastryList = inventory.getPastryList();
+        totalItemNumber = inventory.getItemNumber();
+        for(int i = 0; i < totalItemNumber; i++){
+            cout << i+1 << ". " 
+                 << pastryList[i].getFlavour() 
+                 << " " << pastryList[i].getType() 
+                 << " RM" << pastryList[i].getPPW() << "/kg RM" 
+                 << pastryList[i].getPPP() << "/pc";
+            if(pastryList[i].getPiece() <= 0){
+                cout << " (Out of Stock!)";
+            }
+            cout << endl;
+        }
+        cout << endl;
+        cout << "Enter the number to add the item to your cart: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, totalItemNumber+1) || validateOutofStock(choice, inventory));
+    return choice;
+}
+
+int View :: customerFoodBuyMethod(){
+    int choice;
+    do{
+        cout << endl;
+        cout << "Choose your item amount by" << endl;
+        cout << "1. Piece(pc)" << endl;
+        cout << "2. Weight(kg)" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 2));
+    return choice;
+}
+
+float View :: customerBuyByPiece(Pastry &itemSelected){
+    float piece;
+    do{
+        cout << endl;
+        cout << "How many pieces do you want: ";
+        cin >> piece;
+    }while(validatePieceAndWeight(piece, itemSelected.getPiece()));
+    return piece;
+}
+
+float View :: customerBuyByWeight(Pastry &itemSelected){
+    float weight;
+    do{
+        
+        cout << endl;
+        cout << "How many kg do you want: ";
+        cin >> weight;
+    }while(validatePieceAndWeight(weight, itemSelected.getWeight()));
+    return weight;
+}
+
+int View :: displayCart(const Cart& customerCart){
+    Pastry* cartList = customerCart.getInCartItem();
+    for(int i = 0; i < customerCart.getAmount(); i++){
+        cout << i+1 << ". " 
+                << cartList[i].getFlavour() 
+                << " " << cartList[i].getType() 
+                << " RM" << cartList[i].getPrice()
+                << endl;
+    }
+    int choice;
+    do{
+        cout << endl;
+        cout << "1. Delete item" << endl;
+        cout << "2. Proceed to payment" << endl;
+        cout << "3. Back to Customer Menu" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 3));
+    return choice;
 }

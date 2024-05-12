@@ -1,2 +1,2 @@
-type flavour piece weight priceperweight
-cake lemon 11.5 1.15 8.9
+Cake Lemon 11.5 1.15 0.1 8.9
+Cookie Chocolate 10.0 0.3 0.03 1.2
