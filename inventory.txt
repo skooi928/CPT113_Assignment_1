@@ -1,0 +1,1 @@
+// Inventory format: itemName pricePiece priceWeight amount score comment
