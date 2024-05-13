@@ -139,7 +139,6 @@ int Shop :: customerMenu(){
         choice = UI.customerMenuDisplay();
         switch(choice){
             case 0:
-
                 return 0;
                 break;
             case 1:

@@ -2,8 +2,8 @@
 #include "inventory.h"
 #include "pastry.h"
 #include <iostream>
-#include<fstream>
-#include<iomanip>
+#include <fstream>
+#include <iomanip>
 #include <string>
 
 
@@ -49,7 +49,6 @@ void View :: editPromo(){
         << "|             For every 5 purchases made             |" << "\n"
         << "|             Will get a 10%% discount!              |" << "\n"
         << "-----------------------------------------------------" << "\n";
-    
 }
 
 void View :: checkPromo(){
@@ -121,13 +120,13 @@ int View :: mainmenu(){
              << "|      Welcome to My Eid Cookies and Cakes Hub       |"<< "\n"
              << "-----------------------------------------------------" << "\n"
              << "| Please enter (0-2):                                |"<< "\n"
+             << "| 0. Exit                                            |"<< "\n"
              << "| 1. Staff                                           |"<< "\n"
              << "| 2. Customer                                        |"<< "\n"
-             << "| 3. Exit                                            |"<< "\n"
              << "-----------------------------------------------------" << endl;
         cout << "Your choice: ";
         cin >> choice;
-    }while(validateInput(choice, 1, 3));
+    }while(validateInput(choice, 0, 2));
     return choice;
 }
 
@@ -154,14 +153,14 @@ int View :: staffMenuDisplay(){
         cout << "-----------------------------------------------------" << "\n"
              << "|               Staff Operations Menu                |"<< "\n"
              << "-----------------------------------------------------" << "\n"
+             << "| 0. Exit                                            |"<< "\n"
              << "| 1. Menu                                            |"<< "\n"
              << "| 2. Inventory                                       |"<< "\n"
              << "| 3. Check Sales                                     |"<< "\n"
-             << "| 4. Exit                                            |"<< "\n"
              << "-----------------------------------------------------" << endl;
         cout << "Your choice: ";
         cin >> choice;
-    }while(validateInput(choice, 1, 4));
+    }while(validateInput(choice, 0, 3));
     return choice;
 }
 
@@ -171,15 +170,15 @@ int View :: customerMenuDisplay(){
         cout<< "-----------------------------------------------------"  << "\n"
             << "|             Eid Cookies and Cakes Hub              |" << "\n"
             << "-----------------------------------------------------"  << "\n"
+            << "| 0. Exit                                            |" << "\n"
             << "| 1. Menu                                            |" << "\n"
-            << "| 2. Promotion                                       |" << "\n"
-            << "| 3. Cart                                            |" << "\n"
-            << "| 4. Exit                                            |" << "\n"
+            << "| 2. Cart                                            |" << "\n"
+            << "| 3. Promotion                                       |" << "\n"
             << "-----------------------------------------------------"  << endl;
 
         cout << "Your choice: ";
         cin >> choice;
-    }while(validateInput(choice, 1, 4));
+    }while(validateInput(choice, 0, 3));
     return choice;
 }
 
