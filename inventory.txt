@@ -1,1 +1,2 @@
-// Inventory format: itemName pricePiece priceWeight amount score comment
+Cake Lemon 11.5 1.15 0.1 8.9
+Cookie Chocolate 10.0 0.3 0.03 1.2

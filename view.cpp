@@ -1,49 +1,25 @@
-#include "View.h"
+#include "view.h"
+#include "inventory.h"
+#include "pastry.h"
 #include <iostream>
 #include<fstream>
 #include<iomanip>
+#include <string>
+
+
 using namespace std;
 
-void View :: start(int& choice){
-    cout << "Welcome to My Eid Cookies and Cakes Hub" << endl;
-    cout << endl;
-    cout << "Please enter (1-2):" << endl;
-    cout << "1. Staff" << endl;
-    cout << "2. Customer" << endl;
-    cout << "Your role? ";
-    cin >> choice;
+bool View :: validateInput(int userInput, int min, int max){
+    if(userInput >= min && userInput <= max){
+        return false;
+    }else{
+        cout << endl;
+        cout << "ERROR: Input must be from " << min <<  " to " << max << "." << endl;
+        cout << endl;
+        return true;
+    }
 }
 
-void View :: accountCheck(int& choice){
-    cout << "Login/Signup?" << endl;
-    cout << "1. Login" << endl;
-    cout << "2. Signup" << endl;
-    cout << "3. Back to Choose Role" << endl;
-    cout << "Your choice: ";
-    cin >> choice;
-}
-
-void View :: menuCustomer() {
-    cout << "-----------------------------------------------------" << "\n"
-        << "|             Eid Cookies and Cakes Hub              |" << "\n"
-        << "-----------------------------------------------------" << "\n"
-        << "| 1. Check Promotion                                 |" << "\n"
-        << "| 2. Shopping Cart                                   |" << "\n"
-        << "| 3. Payment                                         |" << "\n"
-        << "| 4. Exit                                            |" << "\n"
-        << "-----------------------------------------------------" << endl;
-}
-
-void View :: menuWorker() {
-    cout << "-----------------------------------------------------" << "\n"
-        << "|             Eid Cookies and Cakes Hub              |" << "\n"
-        << "-----------------------------------------------------" << "\n"
-        << "| 1. Edit Menu                                       |" << "\n"
-        << "| 2. Edit Promotion                                  |" << "\n"
-        << "| 3. Check Sales                                     |" << "\n"
-        << "| 4. Exit                                            |" << "\n"
-        << "-----------------------------------------------------" << endl;
-}
 
 void View :: displayPastryMenu() {
     string type, name;
@@ -64,38 +40,6 @@ void View :: displayPastryMenu() {
             << setw(15) << right << amount << endl;
         counter++;
     }
-}
-
-void View :: editMenu() {
-    int choice,operation;
-    cout << "Enter index of pastry you would like to select: ";
-
-    //after tht need to add input validation
-    cin >> choice;
-
-    cout<< "  " << "1. Edit Name" << "\n"
-        << "  " << "2. Edit Price" << "\n"
-        << "  " << "3. Edit Amount" << endl;
-
-    switch (operation) {
-    case 1:
-        // call editName(int) func in service
-        break;
-
-    case 2:
-        // call editPrice(int) func in service
-        break;
-
-    case 3:
-        // call editAmount(int) func in service
-        break;
-
-    default:
-        cout << "Invalid Input!"<<endl;
-        break;
-
-    }
-
 }
 
 void View :: editPromo(){
@@ -148,9 +92,231 @@ void View :: confirmPayment(){
 
  }
 
- void View :: exit(){
 
+bool View :: validatePieceAndWeight(float userInput, float max){
+    if(userInput > 0.0 && userInput <= max){
+        return false;
+    }else{
+        cout << endl;
+        cout << "Oops! Unable to add into cart. Limited stocks available: " << max << "." << endl;
+        cout << endl;
+        return true;
+    }
+}
 
+bool View :: validateOutofStock(int userInput, const Inventory &inventory){
+    Pastry* pastryList = inventory.getPastryList();
+    if(pastryList[userInput-1].getPiece() <= 0){
+        cout << endl;
+        cout << "Item sold out! Please select other variation." << endl;
+        return true;
+    }
+    return false;
+}
 
+int View :: mainmenu(){
+    int choice;
+    do{
+        cout << "-----------------------------------------------------" << "\n"
+             << "|      Welcome to My Eid Cookies and Cakes Hub       |"<< "\n"
+             << "-----------------------------------------------------" << "\n"
+             << "| Please enter (0-2):                                |"<< "\n"
+             << "| 1. Staff                                           |"<< "\n"
+             << "| 2. Customer                                        |"<< "\n"
+             << "| 3. Exit                                            |"<< "\n"
+             << "-----------------------------------------------------" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 3));
+    return choice;
+}
 
- }
+int View :: logSignUI(){
+    int choice;
+    do{
+        cout << "-----------------------------------------------------" << "\n"
+             << "|                   Login / SignUp                   |"<< "\n"
+             << "-----------------------------------------------------" << "\n"
+             << "| Please enter (0-2):                                |"<< "\n"
+             << "| 1. Login                                           |"<< "\n"
+             << "| 2. Signup                                          |"<< "\n"
+             << "| 3. Back to Choose Role                             |"<< "\n"
+             << "-----------------------------------------------------" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 3));
+    return choice;
+}
+
+int View :: staffMenuDisplay(){
+    int choice;
+    do{
+        cout << "-----------------------------------------------------" << "\n"
+             << "|               Staff Operations Menu                |"<< "\n"
+             << "-----------------------------------------------------" << "\n"
+             << "| 1. Menu                                            |"<< "\n"
+             << "| 2. Inventory                                       |"<< "\n"
+             << "| 3. Check Sales                                     |"<< "\n"
+             << "| 4. Exit                                            |"<< "\n"
+             << "-----------------------------------------------------" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 4));
+    return choice;
+}
+
+int View :: customerMenuDisplay(){
+    int choice;
+    do{
+        cout<< "-----------------------------------------------------"  << "\n"
+            << "|             Eid Cookies and Cakes Hub              |" << "\n"
+            << "-----------------------------------------------------"  << "\n"
+            << "| 1. Menu                                            |" << "\n"
+            << "| 2. Promotion                                       |" << "\n"
+            << "| 3. Cart                                            |" << "\n"
+            << "| 4. Exit                                            |" << "\n"
+            << "-----------------------------------------------------"  << endl;
+
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 4));
+    return choice;
+}
+
+void View :: loginUI(string &username, string &password){
+
+    cout << "-----------------------------------------------------" << "\n"
+         << "|                       Login                        |"<< "\n"
+         << "-----------------------------------------------------" << "\n"
+         << " Enter your username: ";
+    cin >> username;
+    cout << " Enter your password: ";
+    cin >> password;
+    cout << "-----------------------------------------------------" << endl;
+    
+}
+
+void View :: signUpUI(string &username, string &password){
+    cout << "-----------------------------------------------------" << "\n"
+         << "|                       Sign Up                      |"<< "\n"
+         << "-----------------------------------------------------" << "\n"
+         << " Enter your username: ";
+    cin >> username;
+    cout << " Enter new password: ";
+    cin >> password;
+         
+}
+
+void View :: failLogin(){
+    cout << endl;
+    cout << "Your username or password is incorrect. Please try again."<<"\n"
+         << "-----------------------------------------------------" << endl;
+}
+
+void View :: failSignUP(){
+    cout << endl;
+    cout << "Your username has been used. Please try again."<<"\n"
+         << "-----------------------------------------------------" << endl;
+}
+
+void View :: successLogin(string username){
+    cout << endl;
+    cout << "Login successfully. Welcome " << username <<"\n"
+         << "-----------------------------------------------------" << endl;
+}
+
+void View :: successSignUP(string username){
+    cout << endl;
+    cout << "Sign up successfully. Welcome " << username <<"\n"
+         << "-----------------------------------------------------" << endl;
+}          
+
+int View :: customerFoodMenuDisplay(const Inventory &inventory){
+    int choice;
+    int totalItemNumber;
+    do{
+        cout << endl;
+        cout << "---------------------------------------------------------" << "\n"
+             << "|                          Menu                          |"<< "\n"
+             << "---------------------------------------------------------" << "\n";
+        Pastry* pastryList = inventory.getPastryList();
+        totalItemNumber = inventory.getItemNumber();
+        for(int i = 0; i < totalItemNumber; i++){
+            cout <<i+1 << ". " 
+                 << pastryList[i].getFlavour() 
+                 << " " << pastryList[i].getType() 
+                 << " RM" << pastryList[i].getPPW() << "/kg RM" 
+                 << pastryList[i].getPPP() << "/pc";
+            if(pastryList[i].getPiece() <= 0){
+                cout << " ( Out of Stock!)";
+            }
+            cout << endl;
+        }
+        cout << "---------------------------------------------------------" << endl;
+        cout << "Enter index of item to add into cart: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory));
+    return choice;
+}
+
+int View :: customerFoodBuyMethod(){
+    int choice;
+    do{
+        cout << endl;
+        cout << "Purchase by" << endl;
+        cout << "1. Piece(pc)" << endl;
+        cout << "2. Weight(kg)" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 2));
+    return choice;
+}
+
+float View :: customerBuyByPiece(Pastry &itemSelected){
+    float piece;
+    do{
+        cout << endl;
+        cout << "How many pieces do you want: ";
+        cin >> piece;
+    }while(validatePieceAndWeight(piece, itemSelected.getPiece()));
+    return piece;
+}
+
+float View :: customerBuyByWeight(Pastry &itemSelected){
+    float weight;
+    do{
+        cout << endl;
+        cout << "How many kg do you want: ";
+        cin >> weight;
+    }while(validatePieceAndWeight(weight, itemSelected.getWeight()));
+    return weight;
+}
+
+int View :: displayCart(const Cart& customerCart){
+    Pastry* cartList = customerCart.getInCartItem();
+    cout << "---------------------------------------------------------" << "\n"
+         << "|                          Cart                          |"<< "\n"
+         << "---------------------------------------------------------" << "\n";
+    for(int i = 0; i < customerCart.getAmount(); i++){
+        cout << i+1 << ". " 
+                << cartList[i].getFlavour() 
+                << " " << cartList[i].getType() 
+                << " RM" << cartList[i].getPrice()
+                << endl;
+    }
+    cout << "---------------------------------------------------------"<< "\n";
+    int choice;
+    do{
+        cout << endl;
+        cout << "-------------------------------------" << "\n"
+             << "|           Operation Menu           |" << "\n"
+             << "-------------------------------------" << "\n"
+             << "|    1. Remove item                  |"<< "\n"
+             << "|    2. Proceed to payment           |" << "\n"
+             << "|    3. Return to Customer Menu      |" << "\n"
+             << "-------------------------------------" << "\n"
+             << "Select operation: "<<endl;
+        cin >> choice;
+    }while(validateInput(choice, 1, 3));
+    return choice;
+}

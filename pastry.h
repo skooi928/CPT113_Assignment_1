@@ -1,36 +1,34 @@
 #ifndef PASTRY_H
 #define PASTRY_H
-#include<iostream>
-#include "rating.h"
+#include <string>
+#include <fstream>
 using namespace std;
-
-// Forward declaration
-class Rating;
-
-enum PastryType {
-    COOKIE,CAKE
-};
 
 class Pastry{
     private:
-        PastryType type;                  // cookie or cake
-        string itemName;                  // Name of cookies and cakes
-        float pricePiece, priceweight;    // Pricing on per-piece basis or fixed weight
-        int amount;                       // Number of stocks left
-        Rating rate;                      // Feedback comment and score from customer
-
+        string type;
+        string flavour;
+        float weightperpiece;
+        float priceperweight;
+        float piece;
+        float weight;
     public:
-        Pastry();                                   //Default Constructor
-        Pastry(PastryType,string,float,float,int);       //Constructor overload
-        
-        string getName();
-        float getPricePiece();
-        float getPriceWeight();
-        int getAmount();
-        
-
-
-
+        // Default constructor
+        Pastry();
+        friend void storeInfo(fstream&, Pastry*, int);
+        string getType(){return type;};
+        string getFlavour(){return flavour;};
+        float getWPP(){return weightperpiece;};
+        float getPPP(){return (priceperweight*weightperpiece);};
+        float getPPW(){return priceperweight;};
+        float getPiece(){return piece;};
+        float getWeight(){return weight;};
+        float getPrice(){return(priceperweight*weight);};
+        void setPiece(float);
+        void setWeight(float);
+        Pastry& operator-=(const Pastry&);
+        Pastry& operator+=(const Pastry&);
+        bool operator==(const Pastry&);
 };
 
 #endif

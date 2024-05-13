@@ -1,55 +1,38 @@
 #ifndef USER_H
 #define USER_H
+#include "cart.h"
 #include <string>
-#include "service.h"
-#include "pastry.h"
-#include "rating.h"
-#include "receipt.h"
-#include "view.h"
 using namespace std;
 
 class User{
-    private:
+    protected:
         string username;
         string password;
-        string role;
-        // Service service;
-        View UI;
     public:
-        // Default constructor
         User();
-        // Main Menu UI
-        void mainmenu(int&);
-        // Login/Signup UI
-        void logSign(int&);
-        // Login function
-        void login(int, int&);
-        // Sign up function
-        void signUP(int);
-        void logOut(User*);
+        virtual bool login(string, string) = 0;
+        virtual bool signUP(string, string) = 0;
 };
 
 class Staff : public User{
     public:
-        // Default constructor
+        // Constructor
         Staff();
-        // Staff UI
-
-        // Inventory access (Special for staff only)
-
-        // Rating & Feedback access
-
+        // Log In logic
+        bool login(string, string) override;
+        bool signUP(string, string) override;
 };
 
 class Customer : public User{
+    private:
+        int purchaseCount;
+        Cart shopcart;
     public:
-        // Default constructor
+        // Constructor
         Customer();
-        // Customer UI (menu)
-
-        // Order
-
-        // Rate the food
+        bool login(string, string) override;
+        bool signUP(string, string) override;
+        Cart& getCart(){return shopcart;};
 };
 
 #endif
