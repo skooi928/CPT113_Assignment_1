@@ -5,6 +5,8 @@ using namespace std;
 Pastry :: Pastry(){}
 
 void storeInfo(fstream &inventoryList, Pastry* pastryList, int totalItemNo){
+    string header;
+    getline(inventoryList,header);
     for(int i = 0; i < totalItemNo; i++){
         inventoryList >> pastryList[i].type 
                       >> pastryList[i].flavour 

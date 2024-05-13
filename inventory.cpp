@@ -17,7 +17,7 @@ void Inventory :: read(){
     fstream inventoryList("inventory.txt", ios::in);
     string line;
     // Get how many total item in the inventory
-    int totalItemNumber = 0;
+    int totalItemNumber = -1;
     while(getline(inventoryList, line)){
         totalItemNumber++;
     }
@@ -36,4 +36,21 @@ Pastry* Inventory :: getPastryList() const{
 
 int Inventory :: getItemNumber() const{
     return totalItemNo;
+}
+
+bool Inventory :: checkAllEmpty() const{
+    for(int i = 0; i < totalItemNo; i++){
+        if(pastryList[i].getPiece() > 0){
+            return false;
+        }
+    }
+    return true;
+}
+
+void Inventory :: addLocalInventory(Pastry pastryToChange){
+    for(int i = 0; i < totalItemNo; i++){
+        if(pastryList[i] == pastryToChange){
+            pastryList[i] += pastryToChange;
+        }
+    }
 }

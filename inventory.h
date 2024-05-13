@@ -17,6 +17,8 @@ class Inventory{
         Pastry* getPastryList() const;
         int getItemNumber() const;
         void write();
+        bool checkAllEmpty() const;
+        void addLocalInventory(Pastry);
 };
 
 #endif

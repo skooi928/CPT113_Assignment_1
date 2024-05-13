@@ -133,7 +133,7 @@ int Shop :: staffMenu(){
 }
 
 int Shop :: customerMenu(){
-    Pastry selectedPastry;
+    Pastry selectedPastry, deletePastry;
     int choice, selectItem, buyMethod, viewCartOption;
     float piece, weight;
     while(true){
@@ -144,6 +144,9 @@ int Shop :: customerMenu(){
                 break;
             case 1:
                 selectItem = UI.customerFoodMenuDisplay(inventory);
+                if(selectItem == -1){
+                    break;
+                }
                 buyMethod = UI.customerFoodBuyMethod();
                 selectedPastry = inventory.getPastryList()[selectItem-1];
                 if(buyMethod == 1){
@@ -159,12 +162,20 @@ int Shop :: customerMenu(){
                 static_cast<Customer*>(user)->getCart().addToCart(selectedPastry);
                 break;
             case 2:
-                viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
-                if(viewCartOption == 1){ // Delete item
-
-                }else if(viewCartOption == 2){ // Payment
-
-                }// else will straight continue
+                while(true){
+                    viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
+                    if(viewCartOption == 1){ // Delete item
+                        int deleteItemIndex = UI.deleteCartItem(static_cast<Customer*>(user)->getCart());
+                        if(deleteItemIndex == -1){
+                            continue;
+                        }
+                        static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemIndex, inventory);
+                    }else if(viewCartOption == 2){ // Payment
+                        
+                    }else{
+                        break;
+                    }
+                }
                 break;
         }
     }

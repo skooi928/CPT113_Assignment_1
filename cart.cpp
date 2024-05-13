@@ -1,5 +1,6 @@
 #include "cart.h"
 #include "pastry.h"
+#include "inventory.h"
 #include <iostream>
 using namespace std;
 
@@ -13,6 +14,7 @@ Cart :: ~Cart(){
 }
 
 void Cart :: addToCart(Pastry newPastry){
+    // add
     for(int i = 0; i < amount; i++){
         if(inCartItem[i] == newPastry){
             inCartItem[i] += newPastry;
@@ -26,6 +28,23 @@ void Cart :: addToCart(Pastry newPastry){
         temp[i] = inCartItem[i];
     }
     temp[amount-1] = newPastry;
+    delete [] inCartItem;
+    inCartItem = temp;
+}
+
+void Cart :: deleteFromCart(int index, Inventory inventory){
+    // update inventory
+    inventory.addLocalInventory(inCartItem[index-1]);
+
+    // Remove from cart
+    amount--;
+    Pastry* temp = new Pastry [amount];
+    for(int i = 0; i < index-1; i++){
+        temp[i] = inCartItem[i];
+    }
+    for(int i = index-1; i < amount; i++){
+        temp[i] = inCartItem[i+1];
+    }
     delete [] inCartItem;
     inCartItem = temp;
 }

@@ -132,28 +132,33 @@ void View :: successSignUP(string username){
 }
 
 int View :: customerFoodMenuDisplay(const Inventory &inventory){
-    int choice;
+    int choice = -1;
     int totalItemNumber;
-    do{
-        cout << endl;
-        cout << "Food Menu:" << endl;
-        Pastry* pastryList = inventory.getPastryList();
-        totalItemNumber = inventory.getItemNumber();
-        for(int i = 0; i < totalItemNumber; i++){
-            cout << i+1 << ". " 
-                 << pastryList[i].getFlavour() 
-                 << " " << pastryList[i].getType() 
-                 << " RM" << pastryList[i].getPPW() << "/kg RM" 
-                 << pastryList[i].getPPP() << "/pc";
-            if(pastryList[i].getPiece() <= 0){
-                cout << " (Out of Stock!)";
+    if(!inventory.checkAllEmpty()){
+        do{
+            cout << endl;
+            cout << "Food Menu:" << endl;
+            Pastry* pastryList = inventory.getPastryList();
+            totalItemNumber = inventory.getItemNumber();
+            for(int i = 0; i < totalItemNumber; i++){
+                cout << i+1 << ". " 
+                    << pastryList[i].getFlavour() 
+                    << " " << pastryList[i].getType() 
+                    << " RM" << pastryList[i].getPPW() << "/kg RM" 
+                    << pastryList[i].getPPP() << "/pc";
+                if(pastryList[i].getPiece() <= 0){
+                    cout << " (Out of Stock!)";
+                }
+                cout << endl;
             }
             cout << endl;
-        }
+            cout << "Enter the number to add the item to your cart: ";
+            cin >> choice;
+        }while(validateInput(choice, 1, totalItemNumber+1) || validateOutofStock(choice, inventory));
+    }else{
         cout << endl;
-        cout << "Enter the number to add the item to your cart: ";
-        cin >> choice;
-    }while(validateInput(choice, 1, totalItemNumber+1) || validateOutofStock(choice, inventory));
+        cout << "ERROR: Our shop currently has no items available." << endl;
+    }
     return choice;
 }
 
@@ -209,5 +214,20 @@ int View :: displayCart(const Cart& customerCart){
         cout << "Your choice: ";
         cin >> choice;
     }while(validateInput(choice, 1, 3));
+    return choice;
+}
+
+int View :: deleteCartItem(const Cart& customerCart){
+    int choice = -1;
+    if(customerCart.getAmount() != 0){
+        do{
+            cout << endl;
+            cout << "Which item do you want to delete: ";
+            cin >> choice;
+        }while(validateInput(choice, 1, customerCart.getAmount()));
+    }else{
+        cout << endl;
+        cout << "ERROR: Your cart is empty. You must have an item in your cart to delete!" << endl;
+    }
     return choice;
 }
