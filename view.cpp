@@ -319,7 +319,7 @@ int View :: displayCart(const Cart& customerCart){
              << "|    2. Proceed to payment           |" << "\n"
              << "|    3. Return to Customer Menu      |" << "\n"
              << "-------------------------------------" << "\n"
-             << "Select operation: "<<endl;
+             << "Select operation: ";
         cin >> choice;
     }while(validateInput(choice, 1, 3));
     return choice;
