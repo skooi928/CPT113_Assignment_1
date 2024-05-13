@@ -102,7 +102,6 @@ void Customer :: addPurchaseRecord(){
         while(getline(customerFile, line)){
             if(line == linetochange){
                 customerFile.seekp(position - static_cast<streamoff>(to_string(purchaseCount).length()));
-                cout << "DEBUG: Line added: " << newline << endl;
                 customerFile << newline;
                 customerFile.close();
                 return;
