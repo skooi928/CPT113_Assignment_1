@@ -26,7 +26,7 @@ class Shop{
         // Customer Menu
         int customerMenu();
         // Customer Payment Menu
-        // int customerPayment();
+        int customerPayment();
 };
 
 #endif

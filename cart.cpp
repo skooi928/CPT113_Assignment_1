@@ -32,17 +32,14 @@ void Cart :: addToCart(Pastry newPastry){
     inCartItem = temp;
 }
 
-void Cart :: deleteFromCart(int index, Inventory inventory){
-    // update inventory
-    inventory.addLocalInventory(inCartItem[index-1]);
+void Cart :: deleteFromCart(int userInput){
 
-    // Remove from cart
     amount--;
     Pastry* temp = new Pastry [amount];
-    for(int i = 0; i < index-1; i++){
+    for(int i = 0; i < userInput-1; i++){
         temp[i] = inCartItem[i];
     }
-    for(int i = index-1; i < amount; i++){
+    for(int i = userInput-1; i < amount; i++){
         temp[i] = inCartItem[i+1];
     }
     delete [] inCartItem;

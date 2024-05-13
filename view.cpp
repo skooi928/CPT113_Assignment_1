@@ -154,7 +154,7 @@ int View :: customerFoodMenuDisplay(const Inventory &inventory){
             cout << endl;
             cout << "Enter the number to add the item to your cart: ";
             cin >> choice;
-        }while(validateInput(choice, 1, totalItemNumber+1) || validateOutofStock(choice, inventory));
+        }while(validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory));
     }else{
         cout << endl;
         cout << "ERROR: Our shop currently has no items available." << endl;
@@ -229,5 +229,10 @@ int View :: deleteCartItem(const Cart& customerCart){
         cout << endl;
         cout << "ERROR: Your cart is empty. You must have an item in your cart to delete!" << endl;
     }
+    return choice;
+}
+
+int View :: customerPaymentPage(){
+    int choice;
     return choice;
 }

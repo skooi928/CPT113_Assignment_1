@@ -51,6 +51,7 @@ void Inventory :: addLocalInventory(Pastry pastryToChange){
     for(int i = 0; i < totalItemNo; i++){
         if(pastryList[i] == pastryToChange){
             pastryList[i] += pastryToChange;
+            return;
         }
     }
 }

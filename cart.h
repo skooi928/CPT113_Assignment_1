@@ -14,7 +14,7 @@ class Cart{
         void addToCart(Pastry);
         int getAmount() const{return amount;};
         Pastry* getInCartItem() const;
-        void deleteFromCart(int, Inventory);
+        void deleteFromCart(int);
 };
 
 #endif

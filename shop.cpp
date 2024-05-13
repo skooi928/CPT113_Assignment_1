@@ -42,10 +42,6 @@ void Shop :: start(){
     }
 }
 
-// void Shop :: writeInventory(){
-
-// }
-
 int Shop :: staffLogSign(){
     user = new Staff();
     int choice, returnChoice;
@@ -134,7 +130,7 @@ int Shop :: staffMenu(){
 
 int Shop :: customerMenu(){
     Pastry selectedPastry, deletePastry;
-    int choice, selectItem, buyMethod, viewCartOption;
+    int choice, selectItem, buyMethod, viewCartOption, returnChoice;
     float piece, weight;
     while(true){
         choice = UI.customerMenuDisplay();
@@ -165,13 +161,20 @@ int Shop :: customerMenu(){
                 while(true){
                     viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
                     if(viewCartOption == 1){ // Delete item
-                        int deleteItemIndex = UI.deleteCartItem(static_cast<Customer*>(user)->getCart());
-                        if(deleteItemIndex == -1){
+                        int deleteItemNo = UI.deleteCartItem(static_cast<Customer*>(user)->getCart());
+                        if(deleteItemNo == -1){
                             continue;
                         }
-                        static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemIndex, inventory);
+                        // add back to inventory before deleting
+                        inventory.addLocalInventory(static_cast<Customer*>(user)->getCart().getInCartItem()[deleteItemNo-1]);
+                        // delete from cart
+                        static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemNo);
                     }else if(viewCartOption == 2){ // Payment
-                        
+                        returnChoice = customerPayment();
+                        if(returnChoice == 3){
+                            break;
+                        }
+                        return returnChoice;
                     }else{
                         break;
                     }
@@ -179,5 +182,11 @@ int Shop :: customerMenu(){
                 break;
         }
     }
+    return 0;
+}
+
+int Shop :: customerPayment(){
+    int choice;
+    choice = UI.customerPaymentPage();
     return 0;
 }

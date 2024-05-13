@@ -28,6 +28,7 @@ class View{
         float customerBuyByWeight(Pastry&);
         int displayCart(const Cart&);
         int deleteCartItem(const Cart&);
+        int customerPaymentPage();
 };
 
 #endif
