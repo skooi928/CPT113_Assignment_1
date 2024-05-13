@@ -6,7 +6,8 @@ using namespace std;
 
 
 Pastry :: Pastry(){}
-Pastry :: Pastry( string name,float pricePiece,float priceWeight,int amount){
+Pastry :: Pastry(PastryType pt, string name,float pricePiece,float priceWeight,int amount){
+  type=pt;
   itemName=name;
   pricePiece=pricePiece;
   priceWeight=priceWeight;

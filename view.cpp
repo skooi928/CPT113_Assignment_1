@@ -121,16 +121,31 @@ void View :: checkPromo(){
 
  void View :: payment(){
     cout<< "-----------------------------------------------------" << "\n"
-        << "|               Promotion Of The Day                 |"<< "\n"
+        << "|                      Checkout                      |"<< "\n"
         << "-----------------------------------------------------" << "\n"
         << "|      Item            Price           Amount        |"<< "\n"
         << "-----------------------------------------------------" << "\n";
     // call cart function to display item inside the cart
+
+    // call payment function to calculate the total price and discount
+    float total;
+
+   cout<< "-----------------------------------------------------" << "\n"
+       << "|    Total: "<<setw(15) << left<<total<<"            |"<< "\n"
+       << "-----------------------------------------------------" << "\n";
+    confirmPayment();       
         
  }
 
+void View :: confirmPayment(){
+
+
+
+}
+
 //extra function tbc
  void View :: checkSales(){
+
  }
 
  void View :: exit(){
