@@ -8,6 +8,15 @@ using namespace std;
 
 class View{
     public:
+        void displayPastryMenu();
+        void checkPromo();
+        void payment();
+        void confirmPayment();
+        void editMenu();
+        void editPromo();
+        void checkSales();
+ 
+    
         // All UI here (including logic reasoning)
         bool validateInput(int, int , int);
         bool validatePieceAndWeight(float, float);

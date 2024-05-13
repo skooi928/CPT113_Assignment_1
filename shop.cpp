@@ -23,11 +23,13 @@ void Shop :: start(){
         choice = UI.mainmenu();
         switch (choice){
             case 0:
+                cout<<"\nThanks for your visiting!"<<endl;
                 return; // To exit the function
             case 1:
                 // Call staff menu
                 returnChoice = staffLogSign();
                 if(returnChoice == 0){
+                    cout<<"\nProgram Ended. Keep up the excellent work!"<<endl;
                     return;
                 }
                 break;
@@ -35,6 +37,7 @@ void Shop :: start(){
                 // Call customer menu
                 returnChoice = customerLogSign();
                 if(returnChoice == 0){
+                    cout<<"\nThank you for visiting our shop! We hope to see you again soon."<<endl;
                     return;
                 }
                 break;
@@ -136,6 +139,7 @@ int Shop :: customerMenu(){
         choice = UI.customerMenuDisplay();
         switch(choice){
             case 0:
+
                 return 0;
                 break;
             case 1:
