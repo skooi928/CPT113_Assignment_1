@@ -1,6 +1,7 @@
 #include "view.h"
 #include "inventory.h"
 #include "pastry.h"
+#include "cart.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -58,33 +59,54 @@ void View :: checkPromo(){
         << "|             For every 5 purchases made             |" << "\n"
         << "|             Will get a 10%% discount!              |" << "\n"
         << "-----------------------------------------------------" << "\n";
-    
 }
 
 
- void View :: payment(){
+ int View :: payment(const Cart& cart, int userPurchaseCount){
+    int choice;
+
     cout<< "-----------------------------------------------------" << "\n"
         << "|                      Checkout                      |"<< "\n"
         << "-----------------------------------------------------" << "\n"
         << "|      Item            Price           Amount        |"<< "\n"
         << "-----------------------------------------------------" << "\n";
-    // call cart function to display item inside the cart
-
+    // call cart function
+    for(int i = 0; i < cart.getAmount(); i++){
+        cout<< "|                                                    |"<< "\n";
+        string itemName = cart.getInCartItem()[i].getFlavour() + " " + cart.getInCartItem()[i].getType();
+        if(itemName.length() >= 20){
+            itemName = itemName.substr(0, 20) + "...";
+        }
+        cout << "|   ";
+        cout << setw(20) << left << itemName << " "
+             << setw(10) << fixed << setprecision(2) << showpoint << cart.getInCartItem()[i].getPrice()
+             << setw(19) << right << to_string(static_cast<int>(cart.getInCartItem()[i].getPiece())) + "          |" << endl;
+        cout<< "|                                                    |"<< "\n";
+    }
     // call payment function to calculate the total price and discount
     float total;
-
-   cout<< "-----------------------------------------------------" << "\n"
-       << "|    Total: "<<setw(15) << left<<total<<"            |"<< "\n"
-       << "-----------------------------------------------------" << "\n";
-    confirmPayment();       
-        
+    bool gotDiscount = false;
+    total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
+    if(!gotDiscount){
+        cout<< "-----------------------------------------------------" << "\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << total << "         |\n"
+            << "-----------------------------------------------------" << "\n";
+    }else{
+        cout<< "-----------------------------------------------------" << "\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << total/0.9 << "         |\n"
+            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << total/0.9*0.1 << "         |\n"
+            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << total << "         |\n"
+            << "-----------------------------------------------------" << "\n";
+    }
+    do{
+        cout << "Pay?" << endl;
+        cout << "1. Yes" << endl;
+        cout << "2. No" << endl;
+        cout << "Your choice: ";
+        cin >> choice;
+    }while(validateInput(choice, 1, 2));
+    return choice;
  }
-
-void View :: confirmPayment(){
-
-
-
-}
 
 //extra function tbc
  void View :: checkSales(){
@@ -228,7 +250,12 @@ void View :: successSignUP(string username){
     cout << endl;
     cout << "Sign up successfully. Welcome " << username <<"\n"
          << "-----------------------------------------------------" << endl;
-}          
+}
+
+void View :: successPaid(string username){
+    cout << "-----------------------------------------------------" << endl;
+    cout << "Thank you for your payment. Have a nice day " << username << " !\n";
+}
 
 int View :: customerFoodMenuDisplay(const Inventory &inventory){
     int choice = -1;
@@ -337,10 +364,5 @@ int View :: deleteCartItem(const Cart& customerCart){
         cout << endl;
         cout << "ERROR: Your cart is empty. You must have an item in your cart to delete!" << endl;
     }
-    return choice;
-}
-
-int View :: customerPaymentPage(){
-    int choice;
     return choice;
 }

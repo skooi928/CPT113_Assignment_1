@@ -11,6 +11,7 @@ Cart :: Cart(){
 
 Cart :: ~Cart(){
     delete [] inCartItem;
+    amount = 0;
 }
 
 void Cart :: addToCart(Pastry newPastry){
@@ -48,4 +49,22 @@ void Cart :: deleteFromCart(int userInput){
 
 Pastry* Cart :: getInCartItem() const{
     return inCartItem;
+}
+
+float Cart :: getTotalPrice(int discount, bool& gotDiscount) const{
+    float total;
+    for(int i = 0; i < amount; i++){
+        total += inCartItem[i].getPrice();
+    }
+    if(discount % 5 == 0){
+        gotDiscount = true;
+        return total*0.9;
+    }
+    return total;
+}
+
+void Cart :: clearCart(){
+    delete [] inCartItem;
+    inCartItem = nullptr;
+    amount = 0;
 }
