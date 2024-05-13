@@ -89,3 +89,26 @@ bool Customer :: signUP(string newUsername, string newPassword){
     customerFile.close();
     return true;
 }
+
+void Customer :: addPurchaseRecord(){
+    purchaseCount++;
+    fstream customerFile("customer.txt", ios::in | ios::out);
+    streampos position = 0;
+    string linetochange = username + " " + password + " " + to_string(purchaseCount-1);
+    string newline = username + " " + password + " " + to_string(purchaseCount);
+    string line;
+    while(true){
+        position = customerFile.tellg();
+        while(getline(customerFile, line)){
+            if(line == linetochange){
+                customerFile.seekp(position - static_cast<streamoff>(to_string(purchaseCount).length()));
+                cout << "DEBUG: Line added: " << newline << endl;
+                customerFile << newline;
+                customerFile.close();
+                return;
+            }else{
+                break;
+            }
+        }
+    }
+}

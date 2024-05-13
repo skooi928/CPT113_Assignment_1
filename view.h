@@ -10,12 +10,11 @@ class View{
     public:
         void displayPastryMenu();
         void checkPromo();
-        void payment();
-        void confirmPayment();
+        int payment(const Cart&, int);
+        void successPaid(string);
         void editMenu();
         void editPromo();
         void checkSales();
- 
     
         // All UI here (including logic reasoning)
         bool validateInput(int, int , int);
@@ -37,7 +36,6 @@ class View{
         float customerBuyByWeight(Pastry&);
         int displayCart(const Cart&);
         int deleteCartItem(const Cart&);
-        int customerPaymentPage();
 };
 
 #endif

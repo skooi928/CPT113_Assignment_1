@@ -14,7 +14,9 @@ class Cart{
         void addToCart(Pastry);
         int getAmount() const{return amount;};
         Pastry* getInCartItem() const;
+        float getTotalPrice(int, bool&) const;
         void deleteFromCart(int);
+        void clearCart();
 };
 
 #endif

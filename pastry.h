@@ -16,6 +16,7 @@ class Pastry{
         // Default constructor
         Pastry();
         friend void storeInfo(fstream&, Pastry*, int);
+        friend void writeInfo(fstream&, Pastry*, int);
         string getType(){return type;};
         string getFlavour(){return flavour;};
         float getWPP(){return weightperpiece;};

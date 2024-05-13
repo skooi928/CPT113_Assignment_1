@@ -55,3 +55,9 @@ void Inventory :: addLocalInventory(Pastry pastryToChange){
         }
     }
 }
+
+void Inventory :: write(){
+    fstream inventoryList("inventory.txt", ios::trunc | ios::out);
+    writeInfo(inventoryList, pastryList, totalItemNo);
+    inventoryList.close();
+}

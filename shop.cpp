@@ -174,7 +174,7 @@ int Shop :: customerMenu(){
                         static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemNo);
                     }else if(viewCartOption == 2){ // Payment
                         returnChoice = customerPayment();
-                        if(returnChoice == 3){
+                        if(returnChoice == 2){
                             break;
                         }
                         return returnChoice;
@@ -183,6 +183,9 @@ int Shop :: customerMenu(){
                     }
                 }
                 break;
+            case 3:
+                UI.checkPromo();
+                break;
         }
     }
     return 0;
@@ -190,6 +193,22 @@ int Shop :: customerMenu(){
 
 int Shop :: customerPayment(){
     int choice;
-    choice = UI.customerPaymentPage();
+    choice = UI.payment(static_cast<Customer*>(user)->getCart(), static_cast<Customer*>(user)->getPurchaseCount());
+    switch (choice){
+        case 1:
+            // Pay process
+            UI.successPaid(user->getUsername());
+            // Update customer purchase record
+            static_cast<Customer*>(user)->addPurchaseRecord();
+            // Inventory update to database
+            inventory.write();
+            // Cart clear
+            static_cast<Customer*>(user)->getCart().clearCart();
+            // Continue or quit?
+            break;
+        case 2:
+            // Back to customer menu
+            return 2;
+    }
     return 0;
 }
