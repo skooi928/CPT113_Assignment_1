@@ -361,6 +361,7 @@ bool View :: editInfoValidation(string type){
         cout<<"Invalid input. Enter Cookie or Cake only."<<endl;
         return true;
     }
+    return false;
 }
 
 bool View :: editInfoValidation(float num){
@@ -368,6 +369,7 @@ bool View :: editInfoValidation(float num){
         cout<<"Value must be greater or equal to 0"<<endl;
         return true;
     }
+    return false;
 }
 
 void View :: addNewItem(Pastry& newPastry,const Inventory& inventory){

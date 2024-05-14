@@ -71,6 +71,6 @@ bool Inventory :: expandPastryList(Pastry& newPastry){
     totalItemNo++;
     delete [] pastryList;
     pastryList=newList;
-    return;
+    return true;
 }
 
