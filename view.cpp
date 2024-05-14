@@ -290,7 +290,7 @@ int View :: readItemIdx(Inventory& inventory){
 }
 
 int View :: inventoryEditDisplay(Inventory& inventory, int idx){
-    int choice,infoChoice;
+    int choice;
     float weightperpiece, priceperweight, piece, weight;
     string type,flavour;
     do{
@@ -305,12 +305,13 @@ int View :: inventoryEditDisplay(Inventory& inventory, int idx){
             << "| 5. Piece                                           |" << "\n"
             << "| 6. Weight                                          |" << "\n"
             << "-----------------------------------------------------"  << endl;
-            
-        if(infoChoice==0)
+        cout<<"Select operations: ";
+        cin>>choice;
+        if(choice==0)
             return 0;
-    }while(validateInput(infoChoice,1,6));
+    }while(validateInput(choice,1,6));
     
-    switch(infoChoice){
+    switch(choice){
         case 1:
             do{
                 cout<<"Type: ";
