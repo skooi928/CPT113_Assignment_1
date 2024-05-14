@@ -80,8 +80,8 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
         if (itemName.length() >= 20) {
             itemName = itemName.substr(0, 20) + "...";
         }
-        cout << "|   ";
-        cout << setw(20) << left << itemName << " "
+        cout << "|  ";
+        cout << setw(20) << left << itemName << "RM"
             << setw(10) << fixed << setprecision(2) << showpoint << cart.getInCartItem()[i].getPrice()
             << setw(19) << right << to_string(static_cast<int>(cart.getInCartItem()[i].getPiece())) + "          |" << endl;
         cout << "|                                                    |" << "\n";
@@ -92,14 +92,14 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << total << "         |\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << total / 0.9 << "         |\n"
-            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << total / 0.9 * 0.1 << "         |\n"
-            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << total << "         |\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
+            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
+            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
