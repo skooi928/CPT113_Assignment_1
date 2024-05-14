@@ -439,7 +439,7 @@ int View :: customerFoodMenuDisplay(const Inventory &inventory){
                 cout << endl;
             }
             cout << "---------------------------------------------------------" << endl;
-            cout << "Enter the number to add the item to your cart: ";
+            cout << "Enter index of item to add into cart: ";
             cin >> choice;
         }while(validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory));
     }else{
@@ -452,10 +452,12 @@ int View :: customerFoodMenuDisplay(const Inventory &inventory){
 int View :: customerFoodBuyMethod(){
     int choice;
     do{
-        cout << endl;
-        cout << "Purchase by" << endl;
-        cout << "1. Piece(pc)" << endl;
-        cout << "2. Weight(kg)" << endl;
+        cout << "-------------------------------------" << "\n"
+             << "|           Purchase Method          |" << "\n"
+             << "-------------------------------------" << "\n"
+             << "|    1. Piece(pc)                    |"<< "\n"
+             << "|    2. Weight(kg)                   |" << "\n"
+             << "-------------------------------------" << "\n";
         cout << "Your choice: ";
         cin >> choice;
     }while(validateInput(choice, 1, 2));

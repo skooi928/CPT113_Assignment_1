@@ -160,11 +160,6 @@ int Shop :: staffMenu(){
         }
     }
     return 0;
-
-
-
-
-    
 }
 
 int Shop :: customerMenu(){
@@ -200,6 +195,12 @@ int Shop :: customerMenu(){
                 while(true){
                     viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
                     if(viewCartOption == 1){ // Delete item
+
+                        if((static_cast<Customer*>(user)->getCart().getAmount())==0){
+                            cout<<"The cart is empty! Nothing can be removed.";
+                            break;
+                        }
+
                         int deleteItemNo = UI.deleteCartItem(static_cast<Customer*>(user)->getCart());
                         if(deleteItemNo == -1){
                             continue;
@@ -209,6 +210,12 @@ int Shop :: customerMenu(){
                         // delete from cart
                         static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemNo);
                     }else if(viewCartOption == 2){ // Payment
+
+                        if((static_cast<Customer*>(user)->getCart().getAmount())==0){
+                            cout<<"The cart is empty! Add something before proceed to payment.";
+                            break;
+                        }
+
                         returnChoice = customerPayment();
                         if(returnChoice == 2){
                             break;
