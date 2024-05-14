@@ -3,74 +3,79 @@
 #include <fstream>
 using namespace std;
 
-Inventory :: Inventory(){
+Inventory::Inventory() {
     pastryList = nullptr;
     read();
 }
 
-Inventory :: ~Inventory(){
-    delete [] pastryList;
+Inventory :: ~Inventory() {
+    delete[] pastryList;
 }
 
-void Inventory :: read(){
-    delete [] pastryList;
+void Inventory::read() {
+    delete[] pastryList;
     fstream inventoryList("inventory.txt", ios::in);
     string line;
     // Get how many total item in the inventory
     int totalItemNumber = -1;
-    while(getline(inventoryList, line)){
+    while (getline(inventoryList, line)) {
         totalItemNumber++;
     }
     inventoryList.close();
     totalItemNo = totalItemNumber;
     // Create a list of pastry
-    pastryList = new Pastry [totalItemNo];
+    pastryList = new Pastry[totalItemNo];
     inventoryList.open("inventory.txt", ios::in);
     storeInfo(inventoryList, pastryList, totalItemNo);
     inventoryList.close();
 }
 
-Pastry* Inventory :: getPastryList() const{
+Pastry* Inventory::getPastryList() const {
     return pastryList;
 }
 
-int Inventory :: getItemNumber() const{
+int Inventory::getItemNumber() const {
     return totalItemNo;
 }
 
-bool Inventory :: checkAllEmpty() const{
-    for(int i = 0; i < totalItemNo; i++){
-        if(pastryList[i].getPiece() > 0){
+bool Inventory::checkAllEmpty() const {
+    for (int i = 0; i < totalItemNo; i++) {
+        if (pastryList[i].getPiece() > 0) {
             return false;
         }
     }
     return true;
 }
 
-void Inventory :: addLocalInventory(Pastry pastryToChange){
-    for(int i = 0; i < totalItemNo; i++){
-        if(pastryList[i] == pastryToChange){
+void Inventory::addLocalInventory(Pastry pastryToChange) {
+    for (int i = 0; i < totalItemNo; i++) {
+        if (pastryList[i] == pastryToChange) {
             pastryList[i] += pastryToChange;
             return;
         }
     }
 }
 
-void Inventory :: write(){
+void Inventory::write() {
     fstream inventoryList("inventory.txt", ios::trunc | ios::out);
     writeInfo(inventoryList, pastryList, totalItemNo);
     inventoryList.close();
 }
 
-bool Inventory :: expandPastryList(Pastry& newPastry){
-    Pastry newList[totalItemNo+1];
-    for(int i=0; i<totalItemNo;i++){
-        newList[i]=pastryList[i];
-    } 
-    newList[totalItemNo]=newPastry;
+bool Inventory::addPastryList(Pastry& newPastry) {
+    for (int i = 0; i < totalItemNo; i++) {
+        if (pastryList[i] == newPastry) {
+            return false;
+        }
+    }
     totalItemNo++;
-    delete [] pastryList;
-    pastryList=newList;
+    Pastry* newList=new Pastry[totalItemNo];
+    for (int i = 0; i < (totalItemNo-1); i++) {
+        newList[i] = pastryList[i];
+    }
+    newList[totalItemNo-1] = newPastry;
+    delete[] pastryList;
+    pastryList = newList;
     return true;
 }
 

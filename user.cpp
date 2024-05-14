@@ -7,19 +7,19 @@
 #include "view.h"
 using namespace std;
 
-User :: User(){
+User::User() {
     username = "";
     password = "";
 }
 
-Staff :: Staff() : User(){}
+Staff::Staff() : User() {}
 
-bool Staff :: login(string userN, string pw){
+bool Staff::login(string userN, string pw) {
     fstream staffFile;
     staffFile.open("staff.txt", ios::in);
     string u, p;
-    while(staffFile >> u >> p){
-        if(userN == u && pw == p){
+    while (staffFile >> u >> p) {
+        if (userN == u && pw == p) {
             username = userN;
             password = pw;
             staffFile.close();
@@ -30,12 +30,12 @@ bool Staff :: login(string userN, string pw){
     return false;
 }
 
-bool Staff :: signUP(string newUsername, string newPassword){
+bool Staff::signUP(string newUsername, string newPassword) {
     fstream staffFile;
     staffFile.open("staff.txt", ios::in);
     string u, p;
-    while(staffFile >> u >> p){
-        if(newUsername == u){
+    while (staffFile >> u >> p) {
+        if (newUsername == u) {
             return false;
         }
     }
@@ -49,15 +49,15 @@ bool Staff :: signUP(string newUsername, string newPassword){
     return true;
 }
 
-Customer :: Customer() : User(){}
+Customer::Customer() : User() {}
 
-bool Customer :: login(string userN, string pw){
+bool Customer::login(string userN, string pw) {
     fstream customerFile;
     customerFile.open("customer.txt", ios::in);
     string u, p;
     int c;
-    while(customerFile >> u >> p >> c){
-        if(userN == u && pw == p){
+    while (customerFile >> u >> p >> c) {
+        if (userN == u && pw == p) {
             username = userN;
             password = pw;
             purchaseCount = c;
@@ -69,13 +69,13 @@ bool Customer :: login(string userN, string pw){
     return false;
 }
 
-bool Customer :: signUP(string newUsername, string newPassword){
+bool Customer::signUP(string newUsername, string newPassword) {
     fstream customerFile;
     customerFile.open("customer.txt", ios::in);
     string u, p;
     int c;
-    while(customerFile >> u >> p >> c){
-        if(newUsername == u){
+    while (customerFile >> u >> p >> c) {
+        if (newUsername == u) {
             return false;
         }
     }
@@ -90,22 +90,23 @@ bool Customer :: signUP(string newUsername, string newPassword){
     return true;
 }
 
-void Customer :: addPurchaseRecord(){
+void Customer::addPurchaseRecord() {
     purchaseCount++;
     fstream customerFile("customer.txt", ios::in | ios::out);
     streampos position = 0;
-    string linetochange = username + " " + password + " " + to_string(purchaseCount-1);
+    string linetochange = username + " " + password + " " + to_string(purchaseCount - 1);
     string newline = username + " " + password + " " + to_string(purchaseCount);
     string line;
-    while(true){
+    while (true) {
         position = customerFile.tellg();
-        while(getline(customerFile, line)){
-            if(line == linetochange){
+        while (getline(customerFile, line)) {
+            if (line == linetochange) {
                 customerFile.seekp(position - static_cast<streamoff>(to_string(purchaseCount).length()));
                 customerFile << newline;
                 customerFile.close();
                 return;
-            }else{
+            }
+            else {
                 break;
             }
         }

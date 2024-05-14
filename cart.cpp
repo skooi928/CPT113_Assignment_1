@@ -4,67 +4,67 @@
 #include <iostream>
 using namespace std;
 
-Cart :: Cart(){
+Cart::Cart() {
     inCartItem = nullptr;
     amount = 0;
 }
 
-Cart :: ~Cart(){
-    delete [] inCartItem;
+Cart :: ~Cart() {
+    delete[] inCartItem;
     amount = 0;
 }
 
-void Cart :: addToCart(Pastry newPastry){
+void Cart::addToCart(Pastry newPastry) {
     // add
-    for(int i = 0; i < amount; i++){
-        if(inCartItem[i] == newPastry){
+    for (int i = 0; i < amount; i++) {
+        if (inCartItem[i] == newPastry) {
             inCartItem[i] += newPastry;
             return;
         }
     }
     // if not in the cart(new item)
     amount++;
-    Pastry* temp = new Pastry [amount];
-    for(int i = 0; i < amount-1; i++){
+    Pastry* temp = new Pastry[amount];
+    for (int i = 0; i < amount - 1; i++) {
         temp[i] = inCartItem[i];
     }
-    temp[amount-1] = newPastry;
-    delete [] inCartItem;
+    temp[amount - 1] = newPastry;
+    delete[] inCartItem;
     inCartItem = temp;
 }
 
-void Cart :: deleteFromCart(int userInput){
+void Cart::deleteFromCart(int userInput) {
 
     amount--;
-    Pastry* temp = new Pastry [amount];
-    for(int i = 0; i < userInput-1; i++){
+    Pastry* temp = new Pastry[amount];
+    for (int i = 0; i < userInput - 1; i++) {
         temp[i] = inCartItem[i];
     }
-    for(int i = userInput-1; i < amount; i++){
-        temp[i] = inCartItem[i+1];
+    for (int i = userInput - 1; i < amount; i++) {
+        temp[i] = inCartItem[i + 1];
     }
-    delete [] inCartItem;
+    delete[] inCartItem;
     inCartItem = temp;
 }
 
-Pastry* Cart :: getInCartItem() const{
+Pastry* Cart::getInCartItem() const {
     return inCartItem;
 }
 
-float Cart :: getTotalPrice(int discount, bool& gotDiscount) const{
-    float total;
-    for(int i = 0; i < amount; i++){
+float Cart::getTotalPrice(int discount, bool& gotDiscount) const {
+    float total=0;
+    for (int i = 0; i < amount; i++) {
         total += inCartItem[i].getPrice();
     }
-    if(discount % 5 == 0){
+    if (discount % 5 == 0) {
         gotDiscount = true;
-        return total*0.9;
+        return total * 0.9;
     }
     return total;
 }
 
-void Cart :: clearCart(){
-    delete [] inCartItem;
+void Cart::clearCart() {
+    delete[] inCartItem;
     inCartItem = nullptr;
     amount = 0;
 }
