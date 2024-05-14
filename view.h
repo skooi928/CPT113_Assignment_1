@@ -28,7 +28,16 @@ class View{
         void failSignUP();
         void successLogin(string);
         void successSignUP(string);
-        int staffMenuDisplay();    
+        int staffMenuDisplay();
+        void staffFoodMenuDisplay(const Inventory &);  
+        int inventoryEditDisplay(Inventory&,int);
+        int readItemIdx(Inventory&);
+        bool editInfoValidation(string);
+        bool editInfoValidation(float);
+        void addNewItem(Pastry&, const Inventory&);
+        void storeNewItem(Pastry&,const Inventory&);
+        void addStatusDisplay(bool);
+
         int customerMenuDisplay();
         int customerFoodMenuDisplay(const Inventory &);
         int customerFoodBuyMethod();

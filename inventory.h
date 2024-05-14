@@ -19,6 +19,8 @@ class Inventory{
         void write();
         bool checkAllEmpty() const;
         void addLocalInventory(Pastry);
+        bool expandPastryList(Pastry&);
+        void setItemNumber(int);
 };
 
 #endif

@@ -177,8 +177,8 @@ int View :: staffMenuDisplay(){
              << "-----------------------------------------------------" << "\n"
              << "| 0. Exit                                            |"<< "\n"
              << "| 1. Menu                                            |"<< "\n"
-             << "| 2. Inventory                                       |"<< "\n"
-             << "| 3. Check Sales                                     |"<< "\n"
+             << "| 2. Edit Inventory                                  |"<< "\n"
+             << "| 3. Add New Item                                    |"<< "\n"
              << "-----------------------------------------------------" << endl;
         cout << "Your choice: ";
         cin >> choice;
@@ -255,6 +255,164 @@ void View :: successSignUP(string username){
 void View :: successPaid(string username){
     cout << "-----------------------------------------------------" << endl;
     cout << "Thank you for your payment. Have a nice day " << username << " !\n";
+}
+
+void View :: staffFoodMenuDisplay(const Inventory &inventory){
+    cout << "---------------------------------------------------------" << "\n"
+         << "|                          Menu                          |"<< "\n"
+         << "---------------------------------------------------------" << "\n";
+    Pastry* pastryList = inventory.getPastryList();
+    int totalItemNumber = inventory.getItemNumber();
+    for(int i = 0; i < totalItemNumber; i++){
+        cout << i+1 << ". " 
+            << pastryList[i].getFlavour() 
+            << " " << pastryList[i].getType() 
+            << " RM" << pastryList[i].getPPW() << "/kg RM" 
+            << pastryList[i].getPPP() << "/pc";
+        if(pastryList[i].getPiece() <= 0){
+            cout << " (Out of Stock!)";
+        }
+        cout << endl;
+    }
+    cout << "---------------------------------------------------------" << endl;
+   
+}
+
+int View :: readItemIdx(Inventory& inventory){
+    int idx;
+    do{
+        cout << "Enter index of item you would like to edit: ";
+        cin >> idx;
+        
+    }while(validateInput(idx, 1, inventory.getItemNumber()));
+
+    return idx;
+}
+
+int View :: inventoryEditDisplay(Inventory& inventory, int idx){
+    int choice,infoChoice;
+    float weightperpiece, priceperweight, piece, weight;
+    string type,flavour;
+    do{
+        cout<< "-----------------------------------------------------"  << "\n"
+            << "|                   Operation Menu                   |" << "\n"
+            << "-----------------------------------------------------"  << "\n"
+            << "| 0. Exit                                            |" << "\n"
+            << "| 1. Type                                            |" << "\n"
+            << "| 2. Flavour                                         |" << "\n"
+            << "| 3. Weight Per Piece                                |" << "\n"
+            << "| 4. Price Per Weight                                |" << "\n"
+            << "| 5. Piece                                           |" << "\n"
+            << "| 6. Weight                                          |" << "\n"
+            << "-----------------------------------------------------"  << endl;
+            
+        if(infoChoice==0)
+            return 0;
+    }while(validateInput(infoChoice,1,6));
+    
+    switch(infoChoice){
+        case 1:
+            do{
+                cout<<"Type: ";
+                cin>>type;
+            }while(editInfoValidation(type));
+            inventory.getPastryList()[idx-1].setType(type);
+            break;
+        case 2:
+            cout<<"Flavour: ";
+            cin>>flavour;
+            inventory.getPastryList()[idx-1].setFlavour(flavour);
+            break;
+        case 3:
+            do{
+                cout<<"Weight Per Piece: ";
+                cin>>weightperpiece;
+            }while(editInfoValidation(weightperpiece));
+            inventory.getPastryList()[idx-1].setWPP(weightperpiece);
+            break;
+        case 4:
+            do{
+                cout<<"Price Per Weight: ";
+                cin>>priceperweight;
+            }while(editInfoValidation(priceperweight));
+            inventory.getPastryList()[idx-1].setPPW(priceperweight);
+            break;
+        case 5:
+            do{
+                cout<<"Piece: ";
+                cin>>piece;
+            }while(editInfoValidation(piece));
+            inventory.getPastryList()[idx-1].setPiece(piece);
+            break;
+        case 6:
+            do{
+                cout<<"Weight: ";
+                cin>>weight;
+            }while(editInfoValidation(weight));
+            inventory.getPastryList()[idx-1].setWeight(weight);
+            break;
+    }
+    return 1;
+}
+
+bool View :: editInfoValidation(string type){
+    if(type!="Cookie" && type!="Cake"){
+        cout<<"Invalid input. Enter Cookie or Cake only."<<endl;
+        return true;
+    }
+}
+
+bool View :: editInfoValidation(float num){
+    if(num<0.0){
+        cout<<"Value must be greater or equal to 0"<<endl;
+        return true;
+    }
+}
+
+void View :: addNewItem(Pastry& newPastry,const Inventory& inventory){
+    float weightperpiece, priceperweight, piece, weight;
+    string type,flavour;
+    cout<< "-----------------------------------------------------"  << "\n"
+        << "|              Enter Info of New Item                |" << "\n"
+        << "-----------------------------------------------------"  << endl;
+    do{
+        cout << "Type: ";
+        cin >> type;
+    }while(editInfoValidation(type));
+
+        cout<<"Flavour: ";
+        cin>>flavour;
+   
+    do{
+        cout<<"Weight Per Piece: ";
+        cin>>weightperpiece;
+    }while(editInfoValidation(weightperpiece));
+
+    do{
+        cout<<"Price Per Weight: ";
+        cin>>priceperweight;
+    }while(editInfoValidation(priceperweight));
+
+    do{
+        cout<<"Piece: ";
+        cin>>piece;
+    }while(editInfoValidation(piece));
+      
+    do{
+        cout<<"Weight: ";
+        cin>>weight;
+    }while(editInfoValidation(weight)); 
+
+    newPastry.setPastryValue( type, flavour, weightperpiece, priceperweight, piece, weight);
+
+    
+}
+
+void View :: addStatusDisplay(bool status){
+    if(status)
+        cout<<"Item has been added successsfully.";
+    else
+        cout<<"Fail to add item.";
 }
 
 int View :: customerFoodMenuDisplay(const Inventory &inventory){

@@ -128,7 +128,43 @@ int Shop :: customerLogSign(){
 }
 
 int Shop :: staffMenu(){
-    return 1;
+    Pastry newPastry;
+    int choice,idxItem,editChoice;
+    while(true){
+        choice = UI.staffMenuDisplay();
+        switch(choice){
+            case 0:
+                return 0;
+                break;
+
+            case 1:
+                //Menu
+                UI.staffFoodMenuDisplay(inventory);
+                break;
+
+            case 2:
+                //Edit Inventory
+                UI.staffFoodMenuDisplay(inventory);
+                idxItem=UI.readItemIdx(inventory);
+                editChoice=UI.inventoryEditDisplay(inventory,idxItem);
+                if(editChoice==0)
+                    return 0;
+                break;
+
+            case 3:
+                //Add new items
+                UI.addNewItem(newPastry,inventory);
+                bool addStatus=inventory.expandPastryList(newPastry);
+                UI.addStatusDisplay(addStatus);
+                break;
+        }
+    }
+    return 0;
+
+
+
+
+    
 }
 
 int Shop :: customerMenu(){

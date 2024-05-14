@@ -25,8 +25,13 @@ class Pastry{
         float getPiece(){return piece;};
         float getWeight(){return weight;};
         float getPrice(){return(priceperweight*weight);};
+        void setType(string);
+        void setFlavour(string);
+        void setWPP(float);
+        void setPPW(float);
         void setPiece(float);
         void setWeight(float);
+        void setPastryValue(string,string,float,float,float,float);
         Pastry& operator-=(const Pastry&);
         Pastry& operator+=(const Pastry&);
         bool operator==(const Pastry&);

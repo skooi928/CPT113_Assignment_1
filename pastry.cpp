@@ -29,6 +29,22 @@ void writeInfo(fstream &inventoryList, Pastry* pastryList, int totalItemNo){
     }
 }
 
+void Pastry :: setType(string type){
+    type=type;
+}
+
+void Pastry :: setFlavour(string flavour){
+    flavour=flavour;
+}
+
+void Pastry :: setWPP(float wpp){
+    weightperpiece=wpp;
+}
+
+void Pastry :: setPPW(float ppw){
+    priceperweight=ppw;
+}
+
 void Pastry :: setPiece(float p){
     piece = p;
     if(piece == 0.0){
@@ -45,6 +61,15 @@ void Pastry :: setWeight(float w){
     }else{
         piece = w/weightperpiece;
     }
+}
+
+void Pastry :: setPastryValue(string type,string flavour,float weightperpiece,float priceperweight,float piece,float weight){
+    type=type;
+    flavour=flavour;
+    weightperpiece=weightperpiece;
+    priceperweight=priceperweight;
+    piece=piece;
+    weight=weight;
 }
 
 Pastry& Pastry :: operator-=(const Pastry& changes){

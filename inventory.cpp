@@ -61,3 +61,16 @@ void Inventory :: write(){
     writeInfo(inventoryList, pastryList, totalItemNo);
     inventoryList.close();
 }
+
+bool Inventory :: expandPastryList(Pastry& newPastry){
+    Pastry newList[totalItemNo+1];
+    for(int i=0; i<totalItemNo;i++){
+        newList[i]=pastryList[i];
+    } 
+    newList[totalItemNo]=newPastry;
+    totalItemNo++;
+    delete [] pastryList;
+    pastryList=newList;
+    return;
+}
+
