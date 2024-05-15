@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const int MAX_STREAM_SIZE = 32767;
+
 bool View::validateInput(int userInput, int min, int max) {
     if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
@@ -83,20 +85,20 @@ int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
     bool gotDiscount = false;
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
-        cout << "-----------------------------------------------------" << "\n"
-            << "|        Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
-            << "|+Shipping fee: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "     |\n"
-            << "|=       Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total+shipfee << "     |\n"
-            << "-----------------------------------------------------" << "\n";
+        cout << "-----------------------------------------------------" << "\n";
+        cout << "|        Total:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << " |\n";
+        cout << "|+Shipping fee:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << shipfee << " |\n";
+        cout << "|=       Final:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total+shipfee << " |\n";
+        cout << "-----------------------------------------------------" << "\n";
     }
     else {
-        cout << "-----------------------------------------------------" << "\n"
-            << "|          Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                 |\n"
-            << "|-      Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                  |\n"
-            << "|=After discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                 |\n"
-            << "|+  Shipping fee: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "                 |\n"
-            << "|=         Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                 |\n"
-            << "-----------------------------------------------------" << "\n";
+        cout << "-----------------------------------------------------" << "\n";
+        cout << "           Total:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total / 0.9 << "\n";
+        cout << "-       Discount:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total / 0.9 * 0.1 << "\n";
+        cout << "= After discount:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << "\n";
+        cout << "+   Shipping fee:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << shipfee << "\n";
+        cout << "=          Final:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << "\n";
+        cout << "-----------------------------------------------------" << "\n";
     }
     do {
         cout << "Pay?" << endl;
@@ -592,13 +594,14 @@ bool View::exitConfirmation() {
 string View:: customerStateAddress(){
     string area, address; 
     do{
-        cout << "--------------------------------\n";
-        cout << "|          Shipping to         |\n"; 
-        cout << "--------------------------------\n";
-        cout << "   1. East or West Malaysia? "; 
+        cout << endl;
+        cout << "--------------------------------\n"
+             << "|          Shipping to          |\n" 
+             << "--------------------------------\n";
+        cout << "1. East or West Malaysia? : "; 
         cin >> area; 
     }while(validateCustomerStateAddress(area));
-    cout << "   2. Address: "; 
+    cout << "2. Address: "; 
     cin.ignore(); 
     getline(cin,address); 
     return area; 
@@ -608,9 +611,8 @@ bool View:: validateCustomerStateAddress(string area){
     if(area == "East"||area =="east"||area =="West"||area =="west"){
         return false; 
     }else{
+        cout << endl;
         cout << "Please enter east or west.\n";
         return true; 
     }
-    
-
 }
