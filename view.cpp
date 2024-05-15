@@ -7,21 +7,21 @@
 #include <iomanip>
 #include <string>
 
-
 using namespace std;
 
 bool View::validateInput(int userInput, int min, int max) {
-    if (userInput >= min && userInput <= max) {
+    if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
     }
     else {
         cout << endl;
         cout << "ERROR: Input must be from " << min << " to " << max << "." << endl;
         cout << endl;
+        cin.clear();
+        cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
-
 
 void View::displayPastryMenu() {
     string type, name;
@@ -30,7 +30,7 @@ void View::displayPastryMenu() {
 
 
     cout << endl;
-    cout<< "-----------------------------------------------------" << "\n"
+    cout << "-----------------------------------------------------" << "\n"
         << "|      Item            Price           Amount       |" << "\n"
         << "-----------------------------------------------------" << "\n";
 
@@ -44,22 +44,14 @@ void View::displayPastryMenu() {
     }
 }
 
-void View::editPromo() {
-    cout << endl;
-    cout << "-----------------------------------------------------" << "\n"
-        << "|               Promotion Of The Day                 |" << "\n"
-        << "-----------------------------------------------------" << "\n"
-        << "|             For every 5 purchases made             |" << "\n"
-        << "|             Will get a 10%% discount!              |" << "\n"
-        << "-----------------------------------------------------" << "\n";
-}
-
 void View::checkPromo() {
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
         << "|               Promotion Of The Day                 |" << "\n"
         << "-----------------------------------------------------" << "\n"
         << "|             For every 5 purchases made             |" << "\n"
+        << "|                        OR                          |" << "\n"
+        << "|                First time purchase                 |" << "\n"
         << "|             Will get a 10%% discount!              |" << "\n"
         << "-----------------------------------------------------" << "\n";
 }
@@ -97,9 +89,9 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
-            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
-            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
+            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
+            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -112,20 +104,16 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     return choice;
 }
 
-//extra function tbc
-void View::checkSales() {
-
-}
-
-
 bool View::validatePieceAndWeight(float userInput, float max) {
-    if (userInput > 0.0 && userInput <= max) {
+    if (!(cin.fail()) && userInput > 0.0 && userInput <= max) {
         return false;
     }
     else {
         cout << endl;
         cout << "Oops! Unable to add into cart. Limited stocks available: " << max << "." << endl;
         cout << endl;
+        cin.clear();
+        cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
@@ -141,7 +129,7 @@ bool View::validateOutofStock(int userInput, const Inventory& inventory) {
 }
 
 int View::mainmenu() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -165,7 +153,7 @@ int View::logSignUI() {
         cout << "-----------------------------------------------------" << "\n"
             << "|                   Login / SignUp                   |" << "\n"
             << "-----------------------------------------------------" << "\n"
-            << "| Please enter (0-2):                                |" << "\n"
+            << "| Please enter (1-3):                                |" << "\n"
             << "| 1. Login                                           |" << "\n"
             << "| 2. Signup                                          |" << "\n"
             << "| 3. Back to Choose Role                             |" << "\n"
@@ -177,7 +165,7 @@ int View::logSignUI() {
 }
 
 int View::staffMenuDisplay() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -195,7 +183,7 @@ int View::staffMenuDisplay() {
 }
 
 int View::customerMenuDisplay() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -278,11 +266,10 @@ void View::staffFoodMenuDisplay(const Inventory& inventory) {
         cout << i + 1 << ". "
             << pastryList[i].getFlavour()
             << " " << pastryList[i].getType()
+            << " " << pastryList[i].getPiece() << "pieces"
+            << " " << pastryList[i].getWeight() << "kg"
             << " RM" << pastryList[i].getPPW() << "/kg RM"
             << pastryList[i].getPPP() << "/pc";
-        if (pastryList[i].getPiece() <= 0) {
-            cout << " (Out of Stock!)";
-        }
         cout << endl;
     }
     cout << "---------------------------------------------------------" << endl;
@@ -306,22 +293,21 @@ int View::inventoryEditDisplay(Inventory& inventory, int idx) {
     string type, flavour;
     do {
         cout << endl;
-        cout << "-----------------------------------------------------" << "\n"
+        cout<< "-----------------------------------------------------" << "\n"
             << "|                   Operation Menu                   |" << "\n"
             << "-----------------------------------------------------" << "\n"
             << "| 0. Exit                                            |" << "\n"
             << "| 1. Type                                            |" << "\n"
             << "| 2. Flavour                                         |" << "\n"
-            << "| 3. Weight Per Piece                                |" << "\n"
-            << "| 4. Price Per Weight                                |" << "\n"
-            << "| 5. Piece                                           |" << "\n"
-            << "| 6. Weight                                          |" << "\n"
+            << "| 3. Piece                                           |" << "\n"
+            << "| 4. Weight                                          |" << "\n"
+            << "| 5. Price Per Weight                                |" << "\n"
             << "-----------------------------------------------------" << endl;
         cout << "Select operations: ";
         cin >> choice;
-        if (choice == 0)
+        if (choice == 0)  
             return 0;
-    } while (validateInput(choice, 1, 6));
+    } while (validateInput(choice, 1, 5));
 
     Pastry* pastryList = inventory.getPastryList();
     switch (choice) {
@@ -339,31 +325,26 @@ int View::inventoryEditDisplay(Inventory& inventory, int idx) {
         break;
     case 3:
         do {
-            cout << "Weight Per Piece: ";
-            cin >> weightperpiece;
-        } while (editInfoValidation(weightperpiece));
-        pastryList[idx - 1].setWPP(weightperpiece);
-        break;
-    case 4:
-        do {
             cout << "Price Per Weight: ";
             cin >> priceperweight;
         } while (editInfoValidation(priceperweight));
         pastryList[idx - 1].setPPW(priceperweight);
         break;
-    case 5:
+    case 4:
         do {
             cout << "Piece: ";
             cin >> piece;
         } while (editInfoValidation(piece));
         pastryList[idx - 1].setPiece(piece);
+        pastryList[idx - 1].setWPP(pastryList[idx - 1].getWeight()/piece);
         break;
-    case 6:
+    case 5:
         do {
             cout << "Weight: ";
             cin >> weight;
         } while (editInfoValidation(weight));
         pastryList[idx - 1].setWeight(weight);
+        pastryList[idx - 1].setWPP(weight/pastryList[idx - 1].getPiece());
         break;
     }
     return 1;
@@ -417,7 +398,7 @@ void View::addNewItem(Pastry& newPastry, const Inventory& inventory) {
     } while (editInfoValidation(priceperweight));
 
     weight = piece * weightperpiece;
-    
+
     newPastry.setPastryValue(type, flavour, weightperpiece, priceperweight, piece, weight);
 
 }
@@ -444,7 +425,7 @@ Pastry* View::addNewItem2(const Inventory& inventory) {
 
 
     do {
-        cout << "Weight Per Piece: ";
+        cout << "Weight Per Piece (kg): ";
         cin >> weightperpiece;
     } while (editInfoValidation(weightperpiece));
 
@@ -455,7 +436,7 @@ Pastry* View::addNewItem2(const Inventory& inventory) {
 
     weight = piece * weightperpiece;
 
-    Pastry *newPastry= new Pastry(type, flavour, weightperpiece, priceperweight, piece, weight);
+    Pastry* newPastry = new Pastry(type, flavour, weightperpiece, priceperweight, piece, weight);
     return newPastry;
 
 }
@@ -479,6 +460,7 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
                 << "---------------------------------------------------------" << "\n";
             Pastry* pastryList = inventory.getPastryList();
             totalItemNumber = inventory.getItemNumber();
+            cout << "\n0. Return to customer menu\n";
             for (int i = 0; i < totalItemNumber; i++) {
                 cout << i + 1 << ". "
                     << pastryList[i].getType()
@@ -488,11 +470,13 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
                 if (pastryList[i].getPiece() <= 0) {
                     cout << " (Out of Stock!)";
                 }
-                cout << endl;
+                cout << "\n";
             }
             cout << "---------------------------------------------------------" << endl;
             cout << "Enter index of item to add into cart: ";
             cin >> choice;
+            if (choice == 0)
+                return 0;
         } while (validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory));
     }
     else {
@@ -546,7 +530,7 @@ int View::displayCart(const Cart& customerCart) {
         << "---------------------------------------------------------" << "\n";
 
     if (customerCart.getAmount() == 0) {
-        cout<< "The Cart is Empty Nothing to See Here" <<endl;
+        cout << "The Cart is Empty Nothing to See Here" << endl;
     }
 
     for (int i = 0; i < customerCart.getAmount(); i++) {
@@ -589,16 +573,14 @@ int View::deleteCartItem(const Cart& customerCart) {
     return choice;
 }
 
-bool View:: exitConfirmation() {
-    char isExit;
-    cout << "Press Y/y to exit program.";
+bool View::exitConfirmation() {
+    string isExit;
+    cout << endl;
+    cout << "Press Y/y to exit program: ";
     cin >> isExit;
-    if (isExit == 'Y' || isExit == 'y') {
+    cin.ignore(MAX_STREAM_SIZE, '\n');
+    if (isExit == "Y" || isExit == "y") {
         return true;
     }
-    
     return false;
-    
-
-
 }
