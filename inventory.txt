@@ -1,5 +1,5 @@
 Type Flavour Piece Weight WeightPerPiece PricePerWeight
-Cake Lemon 10.5 1.05 0.1 8.9
-Cake Mango 12 2 0.167 9.8
-Cookie Chocolate 10 0.3 0.03 1.2
-Cookie Original 10 0.3 0.03 1
+Cake Lemon 10.5 1.05 0.1 100.0
+Cake Mango 12 2 0.167 90.0
+Cookie Chocolate 10 0.3 0.03 35.0
+Cookie Original 10 0.3 0.03 30.0
