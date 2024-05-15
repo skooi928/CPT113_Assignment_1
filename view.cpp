@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const int MAX_STREAM_SIZE = 32767;
+
 bool View::validateInput(int userInput, int min, int max) {
     if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
@@ -84,14 +86,14 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
-            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
-            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
+            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "\n"
+            << "- Discount: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "\n"
+            << "=    Final: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -172,7 +174,7 @@ int View::staffMenuDisplay() {
             << "|               Staff Operations Menu                |" << "\n"
             << "-----------------------------------------------------" << "\n"
             << "| 0. Exit                                            |" << "\n"
-            << "| 1. Menu                                            |" << "\n"
+            << "| 1. Inventory                                       |" << "\n"
             << "| 2. Edit Inventory                                  |" << "\n"
             << "| 3. Add New Item                                    |" << "\n"
             << "-----------------------------------------------------" << endl;
@@ -258,8 +260,8 @@ void View::successPaid(string username) {
 void View::staffFoodMenuDisplay(const Inventory& inventory) {
     cout << endl;
     cout << "---------------------------------------------------------" << "\n"
-        << "|                          Menu                          |" << "\n"
-        << "---------------------------------------------------------" << "\n";
+        << "|                      Inventory                          |" << "\n"
+        << "----------------------------------------------------------" << "\n";
     Pastry* pastryList = inventory.getPastryList();
     int totalItemNumber = inventory.getItemNumber();
     for (int i = 0; i < totalItemNumber; i++) {

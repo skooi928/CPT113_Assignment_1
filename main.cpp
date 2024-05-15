@@ -7,8 +7,6 @@
 #include "view.h"
 using namespace std;
 
-const int MAX_STREAM_SIZE = 32767;
-
 int main(){
     Shop shop;
     shop.main();
