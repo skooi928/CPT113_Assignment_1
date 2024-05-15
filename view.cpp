@@ -9,10 +9,8 @@
 
 using namespace std;
 
-const int MAX_STREAM_SIZE = 32767;
-
 bool View::validateInput(int userInput, int min, int max) {
-    if (userInput >= min && userInput <= max) {
+    if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
     }
     else {
@@ -91,9 +89,9 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
-            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
-            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
+            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
+            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -107,13 +105,15 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
 }
 
 bool View::validatePieceAndWeight(float userInput, float max) {
-    if (userInput > 0.0 && userInput <= max) {
+    if (!(cin.fail()) && userInput > 0.0 && userInput <= max) {
         return false;
     }
     else {
         cout << endl;
         cout << "Oops! Unable to add into cart. Limited stocks available: " << max << "." << endl;
         cout << endl;
+        cin.clear();
+        cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
@@ -574,11 +574,12 @@ int View::deleteCartItem(const Cart& customerCart) {
 }
 
 bool View::exitConfirmation() {
-    char isExit;
+    string isExit;
     cout << endl;
     cout << "Press Y/y to exit program: ";
     cin >> isExit;
-    if (isExit == 'Y' || isExit == 'y') {
+    cin.ignore(MAX_STREAM_SIZE, '\n');
+    if (isExit == "Y" || isExit == "y") {
         return true;
     }
     return false;

@@ -167,7 +167,7 @@ int Shop::staffMenu() {
                 UI.staffFoodMenuDisplay(inventory);
                 idxItem = UI.readItemIdx(inventory);
                 editChoice = UI.inventoryEditDisplay(inventory, idxItem);
-                
+                inventory.write();
                 if (editChoice == 0) {
                     if(UI.exitConfirmation())
                         return 0;
