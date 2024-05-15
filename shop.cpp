@@ -159,8 +159,8 @@ int Shop::staffMenu() {
                 if(UI.exitConfirmation())
                     return 0;
             }
-            
-
+            inventory.write();
+            break;
         case 3:
             //Add new items
             UI.addNewItem(newPastry, inventory);
