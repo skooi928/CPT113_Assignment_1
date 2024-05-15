@@ -57,7 +57,7 @@ void View::checkPromo() {
 }
 
 
-int View::payment(const Cart& cart, int userPurchaseCount) {
+int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
     int choice;
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
@@ -84,14 +84,18 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|        Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|+Shipping fee: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "     |\n"
+            << "|=       Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total+shipfee << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
-            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
-            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
+            << "|          Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                 |\n"
+            << "|-      Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                  |\n"
+            << "|=After discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                 |\n"
+            << "|+  Shipping fee: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "                 |\n"
+            << "|=         Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                 |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -583,4 +587,30 @@ bool View::exitConfirmation() {
         return true;
     }
     return false;
+}
+
+string View:: customerStateAddress(){
+    string area, address; 
+    do{
+        cout << "--------------------------------\n";
+        cout << "|          Shipping to         |\n"; 
+        cout << "--------------------------------\n";
+        cout << "   1. East or West Malaysia? "; 
+        cin >> area; 
+    }while(validateCustomerStateAddress(area));
+    cout << "   2. Address: "; 
+    cin.ignore(); 
+    getline(cin,address); 
+    return area; 
+}
+
+bool View:: validateCustomerStateAddress(string area){
+    if(area == "East"||area =="east"||area =="West"||area =="west"){
+        return false; 
+    }else{
+        cout << "Please enter east or west.\n";
+        return true; 
+    }
+    
+
 }
