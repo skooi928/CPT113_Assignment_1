@@ -97,7 +97,7 @@ int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
             << "|-      Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
             << "|=After discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
             << "|+  Shipping fee: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "     |\n"
-            << "|=         Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total+shipfee << "     |\n"
+            << "|=         Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total + shipfee << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
