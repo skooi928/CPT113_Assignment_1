@@ -53,6 +53,8 @@ void View::checkPromo() {
         << "|               Promotion Of The Day                 |" << "\n"
         << "-----------------------------------------------------" << "\n"
         << "|             For every 5 purchases made             |" << "\n"
+        << "|                        OR                          |" << "\n"
+        << "|                First time purchase                 |" << "\n"
         << "|             Will get a 10%% discount!              |" << "\n"
         << "-----------------------------------------------------" << "\n";
 }
@@ -128,7 +130,7 @@ bool View::validateOutofStock(int userInput, const Inventory& inventory) {
 }
 
 int View::mainmenu() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -164,7 +166,7 @@ int View::logSignUI() {
 }
 
 int View::staffMenuDisplay() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -182,7 +184,7 @@ int View::staffMenuDisplay() {
 }
 
 int View::customerMenuDisplay() {
-    int choice;
+    int choice = -1;
     do {
         cout << endl;
         cout << "-----------------------------------------------------" << "\n"
@@ -265,11 +267,10 @@ void View::staffFoodMenuDisplay(const Inventory& inventory) {
         cout << i + 1 << ". "
             << pastryList[i].getFlavour()
             << " " << pastryList[i].getType()
+            << " " << pastryList[i].getPiece() << "pieces"
+            << " " << pastryList[i].getWeight() << "kg"
             << " RM" << pastryList[i].getPPW() << "/kg RM"
             << pastryList[i].getPPP() << "/pc";
-        if (pastryList[i].getPiece() <= 0) {
-            cout << " (Out of Stock!)";
-        }
         cout << endl;
     }
     cout << "---------------------------------------------------------" << endl;
@@ -582,9 +583,5 @@ bool View::exitConfirmation() {
     if (isExit == 'Y' || isExit == 'y') {
         return true;
     }
-
     return false;
-
-
-
 }

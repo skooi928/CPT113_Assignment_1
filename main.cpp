@@ -9,6 +9,6 @@ using namespace std;
 
 int main(){
     Shop shop;
-    shop.start();
+    shop.main();
     return 0;
 }

@@ -16,7 +16,7 @@ public:
     // Shop destructor
     ~Shop();
     // Start
-    void start();
+    void main();
     // Staff Login/Signup
     int staffLogSign();
     // Customer Login/Signup
