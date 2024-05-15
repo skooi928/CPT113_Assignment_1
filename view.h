@@ -12,9 +12,6 @@ public:
     void checkPromo();
     int payment(const Cart&, int);
     void successPaid(string);
-    void editMenu();
-    void editPromo();
-    void checkSales();
 
     // All UI here (including logic reasoning)
     bool validateInput(int, int, int);
@@ -35,7 +32,6 @@ public:
     bool editInfoValidation(string);
     bool editInfoValidation(float);
     void addNewItem(Pastry&, const Inventory&);
-    void storeNewItem(Pastry&, const Inventory&);
     void addStatusDisplay(bool);
 
     int customerMenuDisplay();

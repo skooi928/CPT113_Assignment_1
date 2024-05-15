@@ -23,8 +23,12 @@ void Shop::start() {
         choice = UI.mainmenu();
         switch (choice) {
         case 0:
-            cout << "\nThanks for your visiting!" << endl;
-            return; // To exit the function
+            if (UI.exitConfirmation()) {
+                cout << "\nThanks for your visiting!" << endl;
+                return; // To exit the function
+            }
+            break;
+   
         case 1:
             // Call staff menu
             returnChoice = staffLogSign();
@@ -55,7 +59,9 @@ int Shop::staffLogSign() {
         string username, password;
         switch (choice) {
         case 0:
-            return 0;
+            if (UI.exitConfirmation()) {
+                return 0;
+            }     
         case 1:
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
@@ -98,7 +104,9 @@ int Shop::customerLogSign() {
         string username, password;
         switch (choice) {
         case 0:
-            return 0;
+            if (UI.exitConfirmation())
+                return 0;
+            break;
         case 1:
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
@@ -139,8 +147,7 @@ int Shop::staffMenu() {
         choice = UI.staffMenuDisplay();
         switch (choice) {
         case 0:
-            confirm = UI.exitConfirmation();
-            if (confirm)
+            if (UI.exitConfirmation())
                 return 0;
             break;
 
@@ -159,7 +166,7 @@ int Shop::staffMenu() {
                 if(UI.exitConfirmation())
                     return 0;
             }
-            
+            break;
 
         case 3:
             //Add new items
@@ -182,11 +189,13 @@ int Shop::customerMenu() {
         choice = UI.customerMenuDisplay();
         switch (choice) {
         case 0:
-            return 0;
+            if (UI.exitConfirmation()) {
+                return 0;
+            }
             break;
         case 1:
             selectItem = UI.customerFoodMenuDisplay(inventory);
-            if (selectItem == -1) {
+            if (selectItem <= 0) {
                 break;
             }
             buyMethod = UI.customerFoodBuyMethod();
