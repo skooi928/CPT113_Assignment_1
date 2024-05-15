@@ -177,7 +177,6 @@ int Shop::staffMenu() {
             case 3:
                 //Add new items
                 UI.addNewItem(newPastry, inventory);
-                //pastryPtr = UI.addNewItem2(inventory);
                 status=inventory.addPastryList(newPastry);
                 UI.addStatusDisplay(status);
                 inventory.write();

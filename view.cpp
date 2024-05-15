@@ -401,7 +401,6 @@ void View::addNewItem(Pastry& newPastry, const Inventory& inventory) {
     weight = piece * weightperpiece;
 
     newPastry.setPastryValue(type, flavour, weightperpiece, priceperweight, piece, weight);
-    cout << newPastry.getType() << newPastry.getFlavour();
 
 }
 
@@ -427,7 +426,7 @@ Pastry* View::addNewItem2(const Inventory& inventory) {
 
 
     do {
-        cout << "Weight Per Piece: ";
+        cout << "Weight Per Piece (kg): ";
         cin >> weightperpiece;
     } while (editInfoValidation(weightperpiece));
 
