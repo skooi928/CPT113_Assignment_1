@@ -85,16 +85,17 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     float total;
     bool gotDiscount = false;
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
+    int alignment;
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|    Total: " << setw(30) << fixed << setprecision(2) << showpoint << right << "RM" << total << "      |\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
-            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
-            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
+            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
+            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
+            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
