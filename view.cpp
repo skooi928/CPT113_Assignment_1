@@ -25,7 +25,6 @@ bool View::validateInput(int userInput, int min, int max) {
     }
 }
 
-
 void View::displayPastryMenu() {
     string type, name;
     float price;
@@ -85,17 +84,16 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     float total;
     bool gotDiscount = false;
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
-    int alignment;
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(30) << fixed << setprecision(2) << showpoint << right << "RM" << total << "      |\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|    Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "                       |\n"
-            << "|-Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "                        |\n"
-            << "|   =Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "                       |\n"
+            << "|    Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
+            << "|-Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
+            << "|   =Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -155,7 +153,7 @@ int View::logSignUI() {
         cout << "-----------------------------------------------------" << "\n"
             << "|                   Login / SignUp                   |" << "\n"
             << "-----------------------------------------------------" << "\n"
-            << "| Please enter (0-2):                                |" << "\n"
+            << "| Please enter (1-3):                                |" << "\n"
             << "| 1. Login                                           |" << "\n"
             << "| 2. Signup                                          |" << "\n"
             << "| 3. Back to Choose Role                             |" << "\n"
