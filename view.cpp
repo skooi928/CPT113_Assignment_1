@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const int MAX_STREAM_SIZE = 32767;
+
 bool View::validateInput(int userInput, int min, int max) {
     if (userInput >= min && userInput <= max) {
         return false;
@@ -18,7 +20,7 @@ bool View::validateInput(int userInput, int min, int max) {
         cout << "ERROR: Input must be from " << min << " to " << max << "." << endl;
         cout << endl;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
@@ -574,6 +576,7 @@ int View::deleteCartItem(const Cart& customerCart) {
 
 bool View::exitConfirmation() {
     char isExit;
+    cout << endl;
     cout << "Press Y/y to exit program: ";
     cin >> isExit;
     if (isExit == 'Y' || isExit == 'y') {
