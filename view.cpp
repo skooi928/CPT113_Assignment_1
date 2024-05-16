@@ -34,7 +34,6 @@ void View::checkPromo() {
         << "-----------------------------------------------------" << "\n";
 }
 
-
 int View::payment(const Cart& cart, int userPurchaseCount) {
     int choice;
     cout << endl;
