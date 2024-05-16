@@ -8,7 +8,6 @@ using namespace std;
 
 class View {
 public:
-    void displayPastryMenu();
     void checkPromo();
     int payment(const Cart&, int);
     void successPaid(string);

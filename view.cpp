@@ -25,27 +25,6 @@ bool View::validateInput(int userInput, int min, int max) {
     }
 }
 
-void View::displayPastryMenu() {
-    string type, name;
-    float price;
-    int amount, counter = 1;
-
-
-    cout << endl;
-    cout << "-----------------------------------------------------" << "\n"
-        << "|      Item            Price           Amount       |" << "\n"
-        << "-----------------------------------------------------" << "\n";
-
-    //itemName pricePiece priceWeight amount score comment
-    fstream input("inventory.txt", ios::in);
-    while (input >> name >> price >> amount) {
-        cout << "  " << counter << ". " << setw(15) << left << name
-            << setw(6) << right << price
-            << setw(15) << right << amount << endl;
-        counter++;
-    }
-}
-
 void View::checkPromo() {
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
@@ -86,14 +65,14 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
+            << "     Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "\n"
-            << "- Discount: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "\n"
-            << "=    Final: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
+            << "     Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "\n"
+            << "- Discount: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "\n"
+            << "=    Final: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -467,8 +446,8 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
             cout << "\n0. Return to customer menu\n";
             for (int i = 0; i < totalItemNumber; i++) {
                 cout << i + 1 << ". "
-                    << pastryList[i].getType()
-                    << " " << pastryList[i].getFlavour()
+                    << pastryList[i].getFlavour()
+                    << " " << pastryList[i].getType()
                     << " RM" << pastryList[i].getPPW() << "/kg RM"
                     << pastryList[i].getPPP() << "/pc";
                 if (pastryList[i].getPiece() <= 0) {
