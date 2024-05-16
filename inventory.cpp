@@ -16,14 +16,12 @@ void Inventory::read() {
     delete[] pastryList;
     fstream inventoryList("inventory.txt", ios::in);
     string line;
-    // Get how many total item in the inventory
     int totalItemNumber = -1;
     while (getline(inventoryList, line)) {
         totalItemNumber++;
     }
     inventoryList.close();
     totalItemNo = totalItemNumber;
-    // Create a list of pastry
     pastryList = new Pastry[totalItemNo];
     inventoryList.open("inventory.txt", ios::in);
     storeInfo(inventoryList, pastryList, totalItemNo);

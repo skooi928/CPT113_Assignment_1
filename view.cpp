@@ -331,26 +331,26 @@ int View::inventoryEditDisplay(Inventory& inventory, int idx) {
         break;
     case 3:
         do {
-            cout << "Price Per Weight: ";
-            cin >> priceperweight;
-        } while (editInfoValidation(priceperweight));
-        pastryList[idx - 1].setPPW(priceperweight);
-        break;
-    case 4:
-        do {
             cout << "Piece: ";
             cin >> piece;
         } while (editInfoValidation(piece));
         pastryList[idx - 1].setPiece(piece);
         pastryList[idx - 1].setWPP(pastryList[idx - 1].getWeight()/piece);
         break;
-    case 5:
+    case 4:
         do {
             cout << "Weight: ";
             cin >> weight;
         } while (editInfoValidation(weight));
         pastryList[idx - 1].setWeight(weight);
         pastryList[idx - 1].setWPP(weight/pastryList[idx - 1].getPiece());
+        break;
+    case 5:
+        do {
+            cout << "Price Per Weight: ";
+            cin >> priceperweight;
+        } while (editInfoValidation(priceperweight));
+        pastryList[idx - 1].setPPW(priceperweight);
         break;
     }
     return 1;
