@@ -112,11 +112,6 @@ int Shop::customerLogSign() {
         choice = UI.logSignUI();
         string username, password;
         switch (choice) {
-        case 0:
-            if (UI.exitConfirmation()){
-                return 0;
-            }
-            break;
         case 1:
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
