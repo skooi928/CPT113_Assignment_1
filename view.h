@@ -10,7 +10,7 @@ class View {
 public:
     void displayPastryMenu();
     void checkPromo();
-    int payment(const Cart&, int, float);
+    int payment(const Cart&, int);
     void successPaid(string);
 
     // All UI here (including logic reasoning)
@@ -33,11 +33,9 @@ public:
     bool editInfoValidation(float);
     void addNewItem(Pastry&, const Inventory&);
     void addStatusDisplay(bool);
-    bool validateCustomerStateAddress(string); 
     int customerMenuDisplay();
     int customerFoodMenuDisplay(const Inventory&);
-    int customerFoodBuyMethod();
-    string customerStateAddress(); 
+    int customerFoodBuyMethod(); 
     float customerBuyByPiece(Pastry&);
     float customerBuyByWeight(Pastry&);
     int displayCart(const Cart&);

@@ -253,15 +253,7 @@ int Shop::customerMenu() {
                             cout << endl;
                             break;
                         }
-                        // Add shipping option
-                        string area = UI.customerStateAddress();
-                        float priceEastWest; 
-                        if(area == "East"||area =="east"){
-                            priceEastWest = 12.00; 
-                        }else{
-                            priceEastWest = 8.00; 
-                        }
-                        returnChoice = customerPayment(priceEastWest);
+                        returnChoice = customerPayment();
                         if (returnChoice == 2) {
                             break;
                         }
@@ -283,9 +275,9 @@ int Shop::customerMenu() {
     return 0;
 }
 
-int Shop::customerPayment(float shipfee) {
+int Shop::customerPayment() {
     int choice;
-    choice = UI.payment(static_cast<Customer*>(user)->getCart(), static_cast<Customer*>(user)->getPurchaseCount(), shipfee);
+    choice = UI.payment(static_cast<Customer*>(user)->getCart(), static_cast<Customer*>(user)->getPurchaseCount());
     switch (choice) {
     case 1:
         // Pay process

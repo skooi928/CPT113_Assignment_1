@@ -26,7 +26,7 @@ public:
     // Customer Menu
     int customerMenu();
     // Customer Payment Menu
-    int customerPayment(float);
+    int customerPayment();
 };
 
 #endif

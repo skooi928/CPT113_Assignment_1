@@ -15,6 +15,7 @@ public:
     virtual bool signUP(string, string) = 0;
 };
 
+// Inherited base class User
 class Staff : public User {
 public:
     // Constructor
@@ -24,6 +25,8 @@ public:
     bool signUP(string, string) override;
 };
 
+
+// Inherited base class User
 class Customer : public User {
 private:
     int purchaseCount;

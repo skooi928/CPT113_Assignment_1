@@ -59,7 +59,7 @@ void View::checkPromo() {
 }
 
 
-int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
+int View::payment(const Cart& cart, int userPurchaseCount) {
     int choice;
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
