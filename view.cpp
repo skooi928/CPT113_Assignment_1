@@ -406,7 +406,7 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
                 << "---------------------------------------------------------" << "\n";
             Pastry* pastryList = inventory.getPastryList();
             totalItemNumber = inventory.getItemNumber();
-            cout << "\n0. Return to customer menu\n";
+            cout << "0. Return to customer menu\n";
             for (int i = 0; i < totalItemNumber; i++) {
                 cout << i + 1 << ". "
                     << pastryList[i].getFlavour()
