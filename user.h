@@ -9,8 +9,16 @@ protected:
     string username;
     string password;
 public:
+    // Constructor
     User();
+
+    // Destrutor
+    ~User();
+
+    // Get function
     string getUsername() { return username; };
+
+    // Login logic
     virtual bool login(string, string) = 0;
     virtual bool signUP(string, string) = 0;
 };
@@ -19,6 +27,7 @@ class Staff : public User {
 public:
     // Constructor
     Staff();
+    
     // Log In logic
     bool login(string, string) override;
     bool signUP(string, string) override;
@@ -31,11 +40,20 @@ private:
 public:
     // Constructor
     Customer();
+
+    // Destructor
+    ~Destructor();
+
+    // Log In logic
     bool login(string, string) override;
     bool signUP(string, string) override;
+
+    // Get function
     Cart& getCart() { return shopcart; };
-    void addPurchaseRecord();
     int getPurchaseCount() { return purchaseCount; };
+
+    // Write purchase record of customer in text file
+    void addPurchaseRecord();
 };
 
 #endif

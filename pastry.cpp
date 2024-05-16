@@ -2,8 +2,23 @@
 #include <iostream>
 using namespace std;
 
+//Pastry Constructor 
 Pastry::Pastry() {}
 
+//Pastry Overloaded Constructor
+Pastry::Pastry(string type, string flavour, float weightperpiece, float priceperweight, float piece, float weight) {
+    type = type;
+    flavour = flavour;
+    weightperpiece = weightperpiece;
+    priceperweight = priceperweight;
+    piece = piece;
+    weight = weight;
+}
+
+//Pastry Destructor
+Pastry :: ~Pastry(){};
+
+//Friend function for storing info of pastry that located in an arrray
 void storeInfo(fstream& inventoryList, Pastry* pastryList, int totalItemNo) {
     string header;
     getline(inventoryList, header);
@@ -17,6 +32,7 @@ void storeInfo(fstream& inventoryList, Pastry* pastryList, int totalItemNo) {
     }
 }
 
+//Friend function for write and update the txt file used to saved pastry info
 void writeInfo(fstream& inventoryList, Pastry* pastryList, int totalItemNo) {
     inventoryList << "Type Flavour Piece Weight WeightPerPiece PricePerWeight" << endl;
     for (int i = 0; i < totalItemNo; i++) {
@@ -28,6 +44,7 @@ void writeInfo(fstream& inventoryList, Pastry* pastryList, int totalItemNo) {
             << pastryList[i].priceperweight << endl;
     }
 }
+
 
 void Pastry::setType(string t) {
     type = t;
@@ -65,6 +82,7 @@ void Pastry::setWeight(float w) {
     }
 }
 
+//Set value of pastry when adding new item
 void Pastry::setPastryValue(string t, string f, float wpp, float ppw, float p, float w) {
     type = t;
     flavour = f;
@@ -74,6 +92,7 @@ void Pastry::setPastryValue(string t, string f, float wpp, float ppw, float p, f
     weight = w;
 }
 
+//- Operator overloading to decrease weight, piece of pastry when added into cart
 Pastry& Pastry :: operator-=(const Pastry& changes) {
     piece -= changes.piece;
     weight -= changes.weight;
@@ -84,6 +103,7 @@ Pastry& Pastry :: operator-=(const Pastry& changes) {
     return *this;
 }
 
+//+ Operator overloading to increase weight, piece of pastry when removed from cart
 Pastry& Pastry :: operator+=(const Pastry& changes) {
     piece += changes.piece;
     weight += changes.weight;
@@ -94,16 +114,9 @@ Pastry& Pastry :: operator+=(const Pastry& changes) {
     return *this;
 }
 
+//= Operator overloading to compare type and name of pastry
 bool Pastry :: operator==(const Pastry& other) {
     return (type == other.type && flavour == other.flavour);
 }
 
 
-Pastry::Pastry(string type, string flavour, float weightperpiece, float priceperweight, float piece, float weight) {
-    type = type;
-    flavour = flavour;
-    weightperpiece = weightperpiece;
-    priceperweight = priceperweight;
-    piece = piece;
-    weight = weight;
-}

@@ -7,10 +7,12 @@
 #include <iostream>
 using namespace std;
 
+//Shop constructor
 Shop::Shop() {
     user = nullptr;
 }
 
+//Shop destructor
 Shop :: ~Shop() {
     delete user;
 }
@@ -31,8 +33,9 @@ void Shop::main() {
                 break;
     
             case 1:
-                // Call staff menu
+                // Call staff login or sign up
                 returnChoice = staffLogSign();
+                //Display program ended message
                 if (returnChoice == 0) {
                     cout << "\nProgram Ended. Keep up the excellent work!" << endl;
                     cout << endl;
@@ -40,8 +43,9 @@ void Shop::main() {
                 }
                 break;
             case 2:
-                // Call customer menu
+                // Call customer login or sign up
                 returnChoice = customerLogSign();
+                //Display program ended message
                 if (returnChoice == 0) {
                     cout << "\nThank you for visiting our shop! We hope to see you again soon." << endl;
                     cout << endl;
@@ -64,10 +68,12 @@ int Shop::staffLogSign() {
         string username, password;
         switch (choice) {
         case 0:
+            //Exit program
             if (UI.exitConfirmation()) {
                 return 0;
             }     
         case 1:
+            //Staff login
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
             if (!isLogin) {
@@ -80,6 +86,7 @@ int Shop::staffLogSign() {
             }
             break;
         case 2:
+            //Staff sign up
             UI.signUpUI(username, password);
             isSignUp = user->signUP(username, password);
             if (!isSignUp) {
@@ -93,6 +100,7 @@ int Shop::staffLogSign() {
             }
             break;
         case 3:
+            //Return to role selection menu
             return 3;
         }
     }
@@ -109,11 +117,13 @@ int Shop::customerLogSign() {
         string username, password;
         switch (choice) {
         case 0:
+            //Exit program
             if (UI.exitConfirmation()){
                 return 0;
             }
             break;
         case 1:
+            //Customer login
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
             if (!isLogin) {
@@ -126,6 +136,7 @@ int Shop::customerLogSign() {
             }
             break;
         case 2:
+            //Customer sign up
             UI.signUpUI(username, password);
             isSignUp = user->signUP(username, password);
             if (!isSignUp) {
@@ -139,6 +150,7 @@ int Shop::customerLogSign() {
             }
             break;
         case 3:
+            //Return to role selection menu
             return 3;
         }
     }
@@ -146,27 +158,29 @@ int Shop::customerLogSign() {
 }
 
 int Shop::staffMenu() {
-    Pastry newPastry,*pastryPtr;
+    Pastry newPastry;
     int choice, idxItem, editChoice;
     bool confirm=false, status;
     while (true) {
         choice = UI.staffMenuDisplay();
         switch (choice) {
             case 0:
+                //Exit program
                 if (UI.exitConfirmation())
                     return 0;
                 break;
 
             case 1:
-                //Menu
+                //Display pastry menu
                 UI.staffFoodMenuDisplay(inventory);
                 break;
 
             case 2:
-                //Edit Inventory
+                //Edit inventory
                 UI.staffFoodMenuDisplay(inventory);
                 idxItem = UI.readItemIdx(inventory);
                 editChoice = UI.inventoryEditDisplay(inventory, idxItem);
+                // Update inventory.txt
                 inventory.write();
                 if (editChoice == 0) {
                     if(UI.exitConfirmation())
@@ -175,10 +189,11 @@ int Shop::staffMenu() {
                 break;
 
             case 3:
-                //Add new items
+                //Add new item into inventory
                 UI.addNewItem(newPastry, inventory);
                 status=inventory.addPastryList(newPastry);
                 UI.addStatusDisplay(status);
+                // Update inventory.txt
                 inventory.write();
                 break;
 
@@ -197,11 +212,13 @@ int Shop::customerMenu() {
         choice = UI.customerMenuDisplay();
         switch (choice) {
             case 0:
+                //Exit program
                 if (UI.exitConfirmation()) {
                     return 0;
                 }
                 break;
             case 1:
+                //Display pastry menu
                 selectItem = UI.customerFoodMenuDisplay(inventory);
                 if (selectItem <= 0) {
                     break;
@@ -222,6 +239,7 @@ int Shop::customerMenu() {
                 static_cast<Customer*>(user)->getCart().addToCart(selectedPastry);
                 break;
             case 2:
+                //Cart operation
                 while (true) {
                     viewCartOption = UI.displayCart(static_cast<Customer*>(user)->getCart());
                     if (viewCartOption == 1) { // Delete item
@@ -268,6 +286,7 @@ int Shop::customerMenu() {
                 }
                 break;
             case 3:
+                //Display details of promotion 
                 UI.checkPromo();
                 break;
 

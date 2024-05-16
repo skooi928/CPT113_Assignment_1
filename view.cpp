@@ -11,6 +11,11 @@ using namespace std;
 
 const int MAX_STREAM_SIZE = 32767;
 
+View :: View(){}
+
+View :: ~View(){}
+
+
 bool View::validateInput(int userInput, int min, int max) {
     if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
@@ -25,26 +30,6 @@ bool View::validateInput(int userInput, int min, int max) {
     }
 }
 
-void View::displayPastryMenu() {
-    string type, name;
-    float price;
-    int amount, counter = 1;
-
-
-    cout << endl;
-    cout << "-----------------------------------------------------" << "\n"
-        << "|      Item            Price           Amount       |" << "\n"
-        << "-----------------------------------------------------" << "\n";
-
-    //itemName pricePiece priceWeight amount score comment
-    fstream input("inventory.txt", ios::in);
-    while (input >> name >> price >> amount) {
-        cout << "  " << counter << ". " << setw(15) << left << name
-            << setw(6) << right << price
-            << setw(15) << right << amount << endl;
-        counter++;
-    }
-}
 
 void View::checkPromo() {
     cout << endl;

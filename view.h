@@ -8,15 +8,21 @@ using namespace std;
 
 class View {
 public:
-    void displayPastryMenu();
-    void checkPromo();
-    int payment(const Cart&, int, float);
-    void successPaid(string);
+    // Construtor
+    View();
 
-    // All UI here (including logic reasoning)
+    // Destructor
+    ~View();
+
+    //User input validation 
     bool validateInput(int, int, int);
     bool validatePieceAndWeight(float, float);
     bool validateOutofStock(int, const Inventory&);
+    bool editInfoValidation(string);
+    bool editInfoValidation(float);
+    bool validateCustomerStateAddress(string); 
+
+    // User sign in 
     int mainmenu();
     int logSignUI();
     void loginUI(string&, string&);
@@ -25,15 +31,16 @@ public:
     void failSignUP();
     void successLogin(string);
     void successSignUP(string);
+
+    // Staff menu
     int staffMenuDisplay();
     void staffFoodMenuDisplay(const Inventory&);
     int inventoryEditDisplay(Inventory&, int);
     int readItemIdx(Inventory&);
-    bool editInfoValidation(string);
-    bool editInfoValidation(float);
     void addNewItem(Pastry&, const Inventory&);
     void addStatusDisplay(bool);
-    bool validateCustomerStateAddress(string); 
+
+    // Customer menu
     int customerMenuDisplay();
     int customerFoodMenuDisplay(const Inventory&);
     int customerFoodBuyMethod();
@@ -42,6 +49,11 @@ public:
     float customerBuyByWeight(Pastry&);
     int displayCart(const Cart&);
     int deleteCartItem(const Cart&);
+    void checkPromo();
+    int payment(const Cart&, int, float);
+    void successPaid(string);
+
+    // Confirm to exit
     bool exitConfirmation();
 
 };

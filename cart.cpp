@@ -4,25 +4,27 @@
 #include <iostream>
 using namespace std;
 
+// Cart constructor
 Cart::Cart() {
     inCartItem = nullptr;
     amount = 0;
 }
 
+// Cart destructor
 Cart :: ~Cart() {
     delete[] inCartItem;
     amount = 0;
 }
 
 void Cart::addToCart(Pastry newPastry) {
-    // add
+    // Update the amount if pastry present in the cart
     for (int i = 0; i < amount; i++) {
         if (inCartItem[i] == newPastry) {
             inCartItem[i] += newPastry;
             return;
         }
     }
-    // if not in the cart(new item)
+    // Adding new item into cart 
     amount++;
     Pastry* temp = new Pastry[amount];
     for (int i = 0; i < amount - 1; i++) {
