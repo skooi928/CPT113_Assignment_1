@@ -59,7 +59,7 @@ void View::checkPromo() {
 }
 
 
-int View::payment(const Cart& cart, int userPurchaseCount) {
+int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
     int choice;
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
@@ -85,16 +85,20 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     bool gotDiscount = false;
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
-        cout << "-----------------------------------------------------" << "\n"
-            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
-            << "-----------------------------------------------------" << "\n";
+        cout << "-----------------------------------------------------" << "\n";
+        cout << "|        Total:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << " |\n";
+        cout << "|+Shipping fee:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << shipfee << " |\n";
+        cout << "|=       Final:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total+shipfee << " |\n";
+        cout << "-----------------------------------------------------" << "\n";
     }
     else {
-        cout << "-----------------------------------------------------" << "\n"
-            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "\n"
-            << "- Discount: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "\n"
-            << "=    Final: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
-            << "-----------------------------------------------------" << "\n";
+        cout << "-----------------------------------------------------" << "\n";
+        cout << "           Total:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total / 0.9 << "\n";
+        cout << "-       Discount:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total / 0.9 * 0.1 << "\n";
+        cout << "= After discount:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << "\n";
+        cout << "+   Shipping fee:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << shipfee << "\n";
+        cout << "=          Final:" << setw(8) << fixed << setprecision(2) << showpoint << "RM" << total << "\n";
+        cout << "-----------------------------------------------------" << "\n";
     }
     do {
         cout << "Pay?" << endl;
@@ -548,4 +552,30 @@ bool View::exitConfirmation() {
         return true;
     }
     return false;
+}
+
+string View:: customerStateAddress(){
+    string area, address; 
+    do{
+        cout << endl;
+        cout << "--------------------------------\n"
+             << "|          Shipping to          |\n" 
+             << "--------------------------------\n";
+        cout << "1. East or West Malaysia? : "; 
+        cin >> area; 
+    }while(validateCustomerStateAddress(area));
+    cout << "2. Address: "; 
+    cin.ignore(); 
+    getline(cin,address); 
+    return area; 
+}
+
+bool View:: validateCustomerStateAddress(string area){
+    if(area == "East"||area =="east"||area =="West"||area =="west"){
+        return false; 
+    }else{
+        cout << endl;
+        cout << "Please enter east or west.\n";
+        return true; 
+    }
 }
