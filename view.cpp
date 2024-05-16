@@ -132,6 +132,7 @@ bool View::validateOutofStock(int userInput, const Inventory& inventory) {
     return false;
 }
 
+//Display menu for selling Eid cookies and cakes 
 int View::mainmenu() {
     int choice = -1;
     do {
@@ -146,7 +147,8 @@ int View::mainmenu() {
             << "-----------------------------------------------------" << endl;
         cout << "Your choice: ";
         cin >> choice;
-    } while (validateInput(choice, 0, 2));
+    } while (validateInput(choice, 0, 2)); // Call validateInput() to ensure user's input is within the range (0-2 in this case
+    // if input is not valid, return true and the loop continues
     return choice;
 }
 
@@ -577,6 +579,7 @@ int View::deleteCartItem(const Cart& customerCart) {
     return choice;
 }
 
+// Display and confirm whether the user wants to exit the program and return true to exit the program and vice-versa
 bool View::exitConfirmation() {
     char isExit;
     cout << endl;

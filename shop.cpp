@@ -23,15 +23,17 @@ void Shop::main() {
         choice = UI.mainmenu();
         switch (choice) {
             case 0:
+                // Call exitConfirmation() in View class to display Y/y to exit program and return true to exit the program 
                 if (UI.exitConfirmation()) {
                     cout << "\nThanks for your visiting!" << endl;
                     cout << endl;
-                    return; // To exit the function
+                    return;
                 }
+                // Return false, loop continues 
                 break;
     
             case 1:
-                // Call staff menu
+                // Call staff menu to display login/sign up for staff
                 returnChoice = staffLogSign();
                 if (returnChoice == 0) {
                     cout << "\nProgram Ended. Keep up the excellent work!" << endl;
@@ -40,7 +42,7 @@ void Shop::main() {
                 }
                 break;
             case 2:
-                // Call customer menu
+                // Call customer menu to display login/sign up for customer 
                 returnChoice = customerLogSign();
                 if (returnChoice == 0) {
                     cout << "\nThank you for visiting our shop! We hope to see you again soon." << endl;
@@ -71,9 +73,11 @@ int Shop::staffLogSign() {
             UI.loginUI(username, password);
             isLogin = user->login(username, password);
             if (!isLogin) {
+                //Call failLogin() in View class to display failed login 
                 UI.failLogin();
             }
             else {
+                //Call successLogin() in View class to display successfully login
                 UI.successLogin(username);
                 returnChoice = staffMenu();
                 return returnChoice;
@@ -150,6 +154,7 @@ int Shop::staffMenu() {
     int choice, idxItem, editChoice;
     bool confirm=false, status;
     while (true) {
+        // Call staffMenuDisplay() in View class to display staff operations menu
         choice = UI.staffMenuDisplay();
         switch (choice) {
             case 0:
@@ -158,7 +163,7 @@ int Shop::staffMenu() {
                 break;
 
             case 1:
-                //Menu
+                //Call staffFoodMenuDisplay in View Class to display menu
                 UI.staffFoodMenuDisplay(inventory);
                 break;
 
