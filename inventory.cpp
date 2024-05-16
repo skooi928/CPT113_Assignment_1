@@ -65,18 +65,21 @@ void Inventory::write() {
 }
 
 bool Inventory::addPastryList(Pastry& newPastry) {
+    // If items of newPastry has overlap with items of pastryList, return false 
     for (int i = 0; i < totalItemNo; i++) {
         if (pastryList[i] == newPastry) {
             return false;
         }
     }
     totalItemNo++;
+    // Create a newList to store items of pastryList and item of newPastry 
     Pastry* newList=new Pastry[totalItemNo];
     for (int i = 0; i < (totalItemNo-1); i++) {
         newList[i] = pastryList[i];
     }
     newList[totalItemNo-1] = newPastry;
     delete[] pastryList;
+    // Assign address of newList into pastryList 
     pastryList = newList;
     return true;
 }
