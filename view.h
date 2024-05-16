@@ -43,8 +43,6 @@ public:
     int deleteCartItem(const Cart&);
     bool exitConfirmation();
 
-    
-    Pastry* addNewItem2(const Inventory& inventory);
 };
 
 #endif

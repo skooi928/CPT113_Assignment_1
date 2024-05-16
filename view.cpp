@@ -405,43 +405,6 @@ void View::addNewItem(Pastry& newPastry, const Inventory& inventory) {
 
 }
 
-Pastry* View::addNewItem2(const Inventory& inventory) {
-    float weightperpiece, priceperweight, piece, weight;
-    string type, flavour;
-    cout << endl;
-    cout << "-----------------------------------------------------" << "\n"
-        << "|              Enter Info of New Item                |" << "\n"
-        << "-----------------------------------------------------" << endl;
-    do {
-        cout << "Type: ";
-        cin >> type;
-    } while (editInfoValidation(type));
-
-    cout << "Flavour: ";
-    cin >> flavour;
-
-    do {
-        cout << "How Many Pieces Available: ";
-        cin >> piece;
-    } while (editInfoValidation(piece));
-
-
-    do {
-        cout << "Weight Per Piece (kg): ";
-        cin >> weightperpiece;
-    } while (editInfoValidation(weightperpiece));
-
-    do {
-        cout << "Price Per Weight: ";
-        cin >> priceperweight;
-    } while (editInfoValidation(priceperweight));
-
-    weight = piece * weightperpiece;
-
-    Pastry* newPastry = new Pastry(type, flavour, weightperpiece, priceperweight, piece, weight);
-    return newPastry;
-
-}
 
 
 void View::addStatusDisplay(bool status) {
