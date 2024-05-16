@@ -1,10 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include "user.h"
-#include "pastry.h"
-#include "shop.h"
-#include "cart.h"
-#include "view.h"
 using namespace std;
 
 User::User() {

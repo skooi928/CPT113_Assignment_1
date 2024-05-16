@@ -1,7 +1,4 @@
 #include "view.h"
-#include "inventory.h"
-#include "pastry.h"
-#include "cart.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>

@@ -1,6 +1,4 @@
 #include "cart.h"
-#include "pastry.h"
-#include "inventory.h"
 #include <iostream>
 using namespace std;
 
