@@ -12,7 +12,7 @@ using namespace std;
 const int MAX_STREAM_SIZE = 32767;
 
 bool View::validateInput(int userInput, int min, int max) {
-    if (userInput >= min && userInput <= max) {
+    if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
     }
     else {
@@ -86,18 +86,14 @@ int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
-            << "|        Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
-            << "|+Shipping fee: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "     |\n"
-            << "|=       Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total+shipfee << "     |\n"
+            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     else {
         cout << "-----------------------------------------------------" << "\n"
-            << "|          Total: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "     |\n"
-            << "|-      Discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "     |\n"
-            << "|=After discount: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total << "     |\n"
-            << "|+  Shipping fee: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << shipfee << "     |\n"
-            << "|=         Final: " << setw(32) << fixed << setprecision(2) << showpoint << right << "RM" << total + shipfee << "     |\n"
+            << "     Total: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 << "\n"
+            << "- Discount: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total / 0.9 * 0.1 << "\n"
+            << "=    Final: " << setw(8) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
             << "-----------------------------------------------------" << "\n";
     }
     do {
@@ -111,13 +107,15 @@ int View::payment(const Cart& cart, int userPurchaseCount, float shipfee) {
 }
 
 bool View::validatePieceAndWeight(float userInput, float max) {
-    if (userInput > 0.0 && userInput <= max) {
+    if (!(cin.fail()) && userInput > 0.0 && userInput <= max) {
         return false;
     }
     else {
         cout << endl;
         cout << "Oops! Unable to add into cart. Limited stocks available: " << max << "." << endl;
         cout << endl;
+        cin.clear();
+        cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
@@ -178,7 +176,7 @@ int View::staffMenuDisplay() {
             << "|               Staff Operations Menu                |" << "\n"
             << "-----------------------------------------------------" << "\n"
             << "| 0. Exit                                            |" << "\n"
-            << "| 1. Menu                                            |" << "\n"
+            << "| 1. Inventory                                       |" << "\n"
             << "| 2. Edit Inventory                                  |" << "\n"
             << "| 3. Add New Item                                    |" << "\n"
             << "-----------------------------------------------------" << endl;
@@ -264,8 +262,8 @@ void View::successPaid(string username) {
 void View::staffFoodMenuDisplay(const Inventory& inventory) {
     cout << endl;
     cout << "---------------------------------------------------------" << "\n"
-        << "|                          Menu                          |" << "\n"
-        << "---------------------------------------------------------" << "\n";
+        << "|                      Inventory                          |" << "\n"
+        << "----------------------------------------------------------" << "\n";
     Pastry* pastryList = inventory.getPastryList();
     int totalItemNumber = inventory.getItemNumber();
     for (int i = 0; i < totalItemNumber; i++) {
@@ -581,38 +579,13 @@ int View::deleteCartItem(const Cart& customerCart) {
 
 // Display and confirm whether the user wants to exit the program and return true to exit the program and vice-versa
 bool View::exitConfirmation() {
-    char isExit;
+    string isExit;
     cout << endl;
     cout << "Press Y/y to exit program: ";
     cin >> isExit;
-    if (isExit == 'Y' || isExit == 'y') {
+    cin.ignore(MAX_STREAM_SIZE, '\n');
+    if (isExit == "Y" || isExit == "y") {
         return true;
     }
     return false;
-}
-
-string View:: customerStateAddress(){
-    string area, address; 
-    do{
-        cout << "--------------------------------\n";
-        cout << "|          Shipping to         |\n"; 
-        cout << "--------------------------------\n";
-        cout << "   1. East or West Malaysia? "; 
-        cin >> area; 
-    }while(validateCustomerStateAddress(area));
-    cout << "   2. Address: "; 
-    cin.ignore(); 
-    getline(cin,address); 
-    return area; 
-}
-
-bool View:: validateCustomerStateAddress(string area){
-    if(area == "East"||area =="east"||area =="West"||area =="west"){
-        return false; 
-    }else{
-        cout << "Please enter east or west.\n";
-        return true; 
-    }
-    
-
 }
