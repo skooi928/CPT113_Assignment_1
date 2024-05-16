@@ -12,9 +12,6 @@ public:
     // Constructor
     User();
 
-    // Destrutor
-    ~User();
-
     // Get function
     string getUsername() { return username; };
 
@@ -43,9 +40,6 @@ private:
 public:
     // Constructor
     Customer();
-
-    // Destructor
-    ~Destructor();
 
     // Log In logic
     bool login(string, string) override;
