@@ -16,7 +16,7 @@ bool Staff::login(string userN, string pw) {
     string u, p;
     //Reading data from the input file stream 'staffFile'
     while (staffFile >> u >> p) {
-        //If the u and p data (stored inside file) same with userN and pw which is user's input, it will stored in username and password which in private access specifier
+        //If the u and p data (stored inside file) same with userN and pw which is user's input, it will stored in username and password which in protected access specifier
         if (userN == u && pw == p) {
             username = userN;
             password = pw;

@@ -14,15 +14,19 @@ Inventory :: ~Inventory() {
 
 void Inventory::read() {
     delete[] pastryList;
+    // Read inventory.txt to get the number of items 
     fstream inventoryList("inventory.txt", ios::in);
     string line;
+    // Initialize as -1 to ignore the header of inventory.txt and count from 0
     int totalItemNumber = -1;
+    // inventoryList will read inventory.txt to store inside line
     while (getline(inventoryList, line)) {
         totalItemNumber++;
     }
     inventoryList.close();
     totalItemNo = totalItemNumber;
     pastryList = new Pastry[totalItemNo];
+    // Read inventory.txt to get and store type, flavour, piece...
     inventoryList.open("inventory.txt", ios::in);
     storeInfo(inventoryList, pastryList, totalItemNo);
     inventoryList.close();

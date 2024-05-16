@@ -21,6 +21,7 @@ Pastry :: ~Pastry(){};
 //Friend function for storing info of pastry that located in an arrray
 void storeInfo(fstream& inventoryList, Pastry* pastryList, int totalItemNo) {
     string header;
+    // To ignore the header of inventoryList and store inside header
     getline(inventoryList, header);
     for (int i = 0; i < totalItemNo; i++) {
         inventoryList >> pastryList[i].type

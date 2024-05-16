@@ -30,7 +30,7 @@ public:
     int staffMenuDisplay();
     void staffFoodMenuDisplay(const Inventory&);
     int inventoryEditDisplay(Inventory&, int);
-    int readItemIdx(Inventory&);
+    int readItemIdx(const Inventory&);
     void addNewItem(Pastry&, const Inventory&);
     void addStatusDisplay(bool);
 

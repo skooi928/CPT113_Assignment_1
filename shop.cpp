@@ -56,23 +56,20 @@ void Shop::main() {
 }
 
 int Shop::staffLogSign() {
+    // user hold Staff() address 
     user = new Staff();
     int choice, returnChoice;
+    // Assign false because haven't login or sign up yet 
     bool isLogin = false;
     bool isSignUp = false;
-    while (!isLogin) {
-        choice = UI.logSignUI();
-        string username, password;
-        switch (choice) {
-        case 0:
-            //Exit program
-            if (UI.exitConfirmation()) {
-                return 0;
-            }     
+    while (!isLogin) { // program loop if isLogin false 
+        choice = UI.logSignUI(); // Call logSignUI() in View class
+        string username, password; 
+        switch (choice) {    
         case 1:
             //Staff login
             UI.loginUI(username, password);
-            isLogin = user->login(username, password);
+            isLogin = user->login(username, password); // Call login() to check if username and password is correct 
             if (!isLogin) {
                 //Call failLogin() in View class to display failed login 
                 UI.failLogin();
@@ -165,12 +162,12 @@ int Shop::staffMenu() {
                 break;
 
             case 1:
-                //Call staffFoodMenuDisplay in View Class to display menu
+                //Call staffFoodMenuDisplay in View Class to display Inventory
                 UI.staffFoodMenuDisplay(inventory);
                 break;
 
             case 2:
-                //Edit inventory
+                // Edit inventory
                 UI.staffFoodMenuDisplay(inventory);
                 idxItem = UI.readItemIdx(inventory);
                 editChoice = UI.inventoryEditDisplay(inventory, idxItem);

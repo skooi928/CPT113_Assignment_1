@@ -256,7 +256,7 @@ void View::staffFoodMenuDisplay(const Inventory& inventory) {
 
 }
 
-int View::readItemIdx(Inventory& inventory) {
+int View::readItemIdx(const Inventory& inventory) {
     int idx;
     do {
         cout << "Enter index of item you would like to edit: ";
@@ -285,12 +285,13 @@ int View::inventoryEditDisplay(Inventory& inventory, int idx) {
             << "-----------------------------------------------------" << endl;
         cout << "Select operations: ";
         cin >> choice;
-        if (choice == 0)  
-            return 0;
-    } while (validateInput(choice, 1, 5));
+    } while (validateInput(choice, 0, 5));
 
     Pastry* pastryList = inventory.getPastryList();
     switch (choice) {
+    case 0:
+        return 0;
+        break;
     case 1:
         do {
             cout << "Type: ";
