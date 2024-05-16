@@ -8,14 +8,24 @@ private:
     Pastry* inCartItem;
     int amount;
 public:
+    // Constrcutor
     Cart();
+
+    // Destructor
     ~Cart();
-    // Add cart
-    void addToCart(Pastry);
+
+    // Get function
     int getAmount() const { return amount; };
     Pastry* getInCartItem() const;
     float getTotalPrice(int, bool&) const;
+
+    // Add pastry into cart
+    void addToCart(Pastry);
+    
+    // Delete pastry into cart
     void deleteFromCart(int);
+
+    // Clear all items in cart
     void clearCart();
 };
 
