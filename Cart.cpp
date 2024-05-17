@@ -69,9 +69,3 @@ float Cart::getTotalPrice(int discount, bool& gotDiscount) const {
     }
     return total;
 }
-
-void Cart::clearCart() {
-    delete[] inCartItem;
-    inCartItem = nullptr;
-    amount = 0;
-}

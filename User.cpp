@@ -14,7 +14,8 @@ Staff::Staff() : User() {}
 bool Staff::login(string userN, string pw) {
     fstream staffFile;
     staffFile.open("staff.txt", ios::in);
-    string u, p;
+    string u, p, header;
+    getline(staffFile, header);
     //Reading data from the input file stream 'staffFile'
     while (staffFile >> u >> p) {
         //If the u and p data (stored inside file) same with userN and pw which is user's input, it will stored in username and password which in protected access specifier
@@ -33,7 +34,8 @@ bool Staff::login(string userN, string pw) {
 bool Staff::signUP(string newUsername, string newPassword) {
     fstream staffFile;
     staffFile.open("staff.txt", ios::in);
-    string u, p;
+    string u, p, header;
+    getline(staffFile, header);
     // Check if the new username already exists in the staff.txt file
     while (staffFile >> u >> p) {
         if (newUsername == u) {
@@ -57,8 +59,9 @@ Customer::Customer() : User() {}
 bool Customer::login(string userN, string pw) {
     fstream customerFile;
     customerFile.open("customer.txt", ios::in);
-    string u, p;
+    string u, p, header;
     int c;
+    getline(customerFile, header);
     // Read data from the customer.txt file
     while (customerFile >> u >> p >> c) {
         // If the username and password match the input, update the username, password, and purchaseCount for the current Customer object
@@ -78,8 +81,9 @@ bool Customer::login(string userN, string pw) {
 bool Customer::signUP(string newUsername, string newPassword) {
     fstream customerFile;
     customerFile.open("customer.txt", ios::in);
-    string u, p;
+    string u, p, header;
     int c;
+    getline(customerFile, header);
     // Check if the new username already exists in the customer.txt file
     while (customerFile >> u >> p >> c) {
         if (newUsername == u) {
@@ -108,6 +112,8 @@ void Customer::addPurchaseRecord() {
     string linetochange = username + " " + password + " " + to_string(purchaseCount - 1);
     string newline = username + " " + password + " " + to_string(purchaseCount);
     string line;
+    // Skip the header of the file
+    getline(customerFile, line);
     // Search for the line in the customer.txt file that matches the linetochange string
     while (true) {
         position = customerFile.tellg();

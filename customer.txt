@@ -1,3 +1,2 @@
-1 1 1
-xueqing_ qxn0511 0
-xueqing 123 2
+Username Password PurchaseCount
+1 1 0

@@ -291,8 +291,6 @@ int Shop::customerPayment() {
         static_cast<Customer*>(user)->addPurchaseRecord();
         // Inventory update to database
         inventory.write();
-        // Cart clear
-        static_cast<Customer*>(user)->getCart().clearCart();
         break;
     case 2:
         // Back to customer menu

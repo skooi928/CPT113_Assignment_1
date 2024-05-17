@@ -25,8 +25,6 @@ public:
     // Delete pastry into cart
     void deleteFromCart(int);
 
-    // Clear all items in cart
-    void clearCart();
 };
 
 #endif
