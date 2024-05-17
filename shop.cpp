@@ -26,7 +26,7 @@ void Shop::main() {
                     cout << endl;
                     return;
                 }
-                // Return false, loop continues 
+                // if false (meaning not Y/y input), loop continues 
                 break;
     
             case 1:
@@ -245,9 +245,9 @@ int Shop::customerMenu() {
                         if (deleteItemNo == -1) {
                             continue;
                         }
-                        // add back to inventory before deleting
+                        // Add back to inventory before deleting
                         inventory.addLocalInventory(static_cast<Customer*>(user)->getCart().getInCartItem()[deleteItemNo - 1]);
-                        // delete from cart
+                        // Delete from cart
                         static_cast<Customer*>(user)->getCart().deleteFromCart(deleteItemNo);
                     }
                     else if (viewCartOption == 2) { // Payment

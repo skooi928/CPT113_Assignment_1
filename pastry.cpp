@@ -5,16 +5,6 @@ using namespace std;
 //Pastry Constructor 
 Pastry::Pastry() {}
 
-//Pastry Overloaded Constructor
-Pastry::Pastry(string type, string flavour, float weightperpiece, float priceperweight, float piece, float weight) {
-    type = type;
-    flavour = flavour;
-    weightperpiece = weightperpiece;
-    priceperweight = priceperweight;
-    piece = piece;
-    weight = weight;
-}
-
 //Pastry Destructor
 Pastry :: ~Pastry(){};
 

@@ -16,9 +16,6 @@ public:
     // Default constructor
     Pastry();
 
-    // Overloaded construtor
-    Pastry(string, string, float, float, float, float);
-
     // Destructor
     ~Pastry();
 

@@ -43,7 +43,7 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
         << "-----------------------------------------------------" << "\n"
         << "|      Item            Price           Amount        |" << "\n"
         << "-----------------------------------------------------" << "\n";
-    // call cart function
+    // call Cart getter function to get all information needed
     for (int i = 0; i < cart.getAmount(); i++) {
         cout << "|                                                    |" << "\n";
         string itemName = cart.getInCartItem()[i].getFlavour() + " " + cart.getInCartItem()[i].getType();
@@ -56,10 +56,11 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
             << setw(19) << right << to_string(static_cast<int>(cart.getInCartItem()[i].getPiece())) + "          |" << endl;
         cout << "|                                                    |" << "\n";
     }
-    // call payment function to calculate the total price and discount
     float total;
     bool gotDiscount = false;
+    // call payment function to calculate the total price and discount
     total = cart.getTotalPrice(userPurchaseCount, gotDiscount);
+    // Different cases of output if got discount or not
     if (!gotDiscount) {
         cout << "-----------------------------------------------------" << "\n"
             << "     Total: " << setw(13) << fixed << setprecision(2) << showpoint << right << "RM" << total << "\n"
@@ -122,7 +123,7 @@ int View::mainmenu() {
             << "-----------------------------------------------------" << endl;
         cout << "Your choice: ";
         cin >> choice;
-    } while (validateInput(choice, 0, 2)); // Call validateInput() to ensure user's input is within the range (0-2 in this case
+    } while (validateInput(choice, 0, 2)); // Call validateInput() to ensure user's input is within the range (0-2) in this case
     // if input is not valid, return true and the loop continues
     return choice;
 }
@@ -412,7 +413,7 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
                     << " " << pastryList[i].getType()
                     << " RM" << pastryList[i].getPPW() << "/kg RM"
                     << pastryList[i].getPPP() << "/pc";
-                // When inventory.txt there is run out of cake or cookie will display out of stock
+                // When pastryList in inventory class object is run out of cake or cookie will display out of stock
                 if (pastryList[i].getPiece() <= 0) {
                     cout << " (Out of Stock!)";
                 }
