@@ -83,7 +83,7 @@ void Pastry::setPastryValue(string t, string f, float wpp, float ppw, float p, f
     weight = w;
 }
 
-//- Operator overloading to decrease weight, piece of pastry when added into cart
+//- Operator overloading to decrease weight, piece of pastry for cart and inventory operations
 Pastry& Pastry :: operator-=(const Pastry& changes) {
     piece -= changes.piece;
     weight -= changes.weight;
@@ -94,7 +94,7 @@ Pastry& Pastry :: operator-=(const Pastry& changes) {
     return *this;
 }
 
-//+ Operator overloading to increase weight, piece of pastry when removed from cart
+//+ Operator overloading to increase weight, piece of pastry for cart and inventory operations
 Pastry& Pastry :: operator+=(const Pastry& changes) {
     piece += changes.piece;
     weight += changes.weight;

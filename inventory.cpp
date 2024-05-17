@@ -32,14 +32,17 @@ void Inventory::read() {
     inventoryList.close();
 }
 
+// The getPastryList method returns a pointer to the array of Pastry objects representing the inventory
 Pastry* Inventory::getPastryList() const {
     return pastryList;
 }
 
+// The getItemNumber method returns the number of items in the pastry
 int Inventory::getItemNumber() const {
     return totalItemNo;
 }
 
+// A boolean method to determine whether the inventory is empty
 bool Inventory::checkAllEmpty() const {
     for (int i = 0; i < totalItemNo; i++) {
         if (pastryList[i].getPiece() > 0) {
@@ -49,15 +52,20 @@ bool Inventory::checkAllEmpty() const {
     return true;
 }
 
+// The addLocalInventory method updates the quantity of a specific pastry item in the inventory
 void Inventory::addLocalInventory(Pastry pastryToChange) {
     for (int i = 0; i < totalItemNo; i++) {
         if (pastryList[i] == pastryToChange) {
+            // If the pastry item is found in the inventory, increment its quantity
+            // Using the overloaded operator
             pastryList[i] += pastryToChange;
             return;
         }
     }
 }
 
+
+// First update to write the inventory by reading the data from inventory.txt
 void Inventory::write() {
     fstream inventoryList("inventory.txt", ios::trunc | ios::out);
     writeInfo(inventoryList, pastryList, totalItemNo);
@@ -84,4 +92,3 @@ bool Inventory::addPastryList(Pastry& newPastry) {
     pastryList = newList;
     return true;
 }
-

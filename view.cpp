@@ -8,7 +8,10 @@ using namespace std;
 
 const int MAX_STREAM_SIZE = 32767;
 
+// A helper function to validate the input
 bool View::validateInput(int userInput, int min, int max) {
+    // if cin.fail() to check if the input is invalid, different data type input
+    // !cin.fail() to check if the input is valid
     if (!(cin.fail()) && userInput >= min && userInput <= max) {
         return false;
     }
@@ -16,29 +19,35 @@ bool View::validateInput(int userInput, int min, int max) {
         cout << endl;
         cout << "ERROR: Input must be from " << min << " to " << max << "." << endl;
         cout << endl;
+        // since the input might be char for int type, so we need to clear the error flag
         cin.clear();
+        // and clear any input buffer
         cin.ignore(MAX_STREAM_SIZE, '\n');
         return true;
     }
 }
 
 void View::checkPromo() {
+    // To show the promo message
     cout << endl;
     cout << "-----------------------------------------------------" << "\n"
-        << "|               Promotion Of The Day                 |" << "\n"
-        << "-----------------------------------------------------" << "\n"
-        << "|             For every 5 purchases made             |" << "\n"
-        << "|                        OR                          |" << "\n"
-        << "|                First time purchase                 |" << "\n"
-        << "|             Will get a 10%% discount!              |" << "\n"
-        << "-----------------------------------------------------" << "\n";
+         << "|                Promotion Of The Day                |" << "\n"
+         << "-----------------------------------------------------" << "\n"
+         << "|                First time purchase                 |" << "\n"
+         << "|                                                    |" << "\n"
+         << "|                        AND                         |" << "\n"
+         << "|                                                    |" << "\n"
+         << "|             For every 5 purchases made             |" << "\n"
+         << "|                                                    |" << "\n"
+         << "|            YOU WILL GET A 10% DISCOUNT!            |" << "\n"
+         << "-----------------------------------------------------" << "\n";
 }
 
 
 int View::payment(const Cart& cart, int userPurchaseCount) {
     int choice;
     cout << endl;
-    cout << "-----------------------------------------------------" << "\n"
+    cout << "----------------------------------------------------" << "\n"
         << "|                      Checkout                      |" << "\n"
         << "-----------------------------------------------------" << "\n"
         << "|      Item            Price           Amount        |" << "\n"
@@ -47,6 +56,7 @@ int View::payment(const Cart& cart, int userPurchaseCount) {
     for (int i = 0; i < cart.getAmount(); i++) {
         cout << "|                                                    |" << "\n";
         string itemName = cart.getInCartItem()[i].getFlavour() + " " + cart.getInCartItem()[i].getType();
+        // Check if item name too long put ... at the back to prevent display error
         if (itemName.length() >= 20) {
             itemName = itemName.substr(0, 20) + "...";
         }
@@ -88,6 +98,7 @@ bool View::validatePieceAndWeight(float userInput, float max) {
         return false;
     }
     else {
+        // Show max value of item they can add.
         cout << endl;
         cout << "Oops! Unable to add into cart. Limited stocks available: " << max << "." << endl;
         cout << endl;
@@ -97,6 +108,7 @@ bool View::validatePieceAndWeight(float userInput, float max) {
     }
 }
 
+// Another helper function to validate the out of stock
 bool View::validateOutofStock(int userInput, const Inventory& inventory) {
     Pastry* pastryList = inventory.getPastryList();
     // If user still choice the items out of stock, it will display item sold out
@@ -386,8 +398,7 @@ void View::addNewItem(Pastry& newPastry, const Inventory& inventory) {
 
 }
 
-
-
+// To show status message of item added or not
 void View::addStatusDisplay(bool status) {
     if (status)
         cout << "\nItem has been added successsfully.";
@@ -398,7 +409,7 @@ void View::addStatusDisplay(bool status) {
 int View::customerFoodMenuDisplay(const Inventory& inventory) {
     int choice = -1;
     int totalItemNumber;
-    if (!inventory.checkAllEmpty()) {
+    if (!inventory.checkAllEmpty()) { // Inventory is not empty, then only the user can buy item from our shop
         do {
             cout << endl;
             cout << "---------------------------------------------------------" << "\n"
@@ -424,16 +435,17 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
             cin >> choice;
             if (choice == 0)
                 return 0;
-        } while (validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory));
+        } while (validateInput(choice, 1, totalItemNumber) || validateOutofStock(choice, inventory)); // Except from checking the input in range,
+                                                                                                      // check if the item is out of stock
     }
-    else {
+    else { // else show error message that our shop has nothing in stock already.
         cout << endl;
         cout << "ERROR: Our shop currently has no items available." << endl;
     }
     return choice;
 }
 
-int View::customerFoodBuyMethod() {
+int View::customerFoodBuyMethod() { // Freedom for the customer to buy by weight or by piece.
     int choice;
     do {
         cout << endl;
@@ -476,7 +488,7 @@ int View::displayCart(const Cart& customerCart) {
         << "|                          Cart                          |" << "\n"
         << "---------------------------------------------------------" << "\n";
 
-    if (customerCart.getAmount() == 0) {
+    if (customerCart.getAmount() == 0) { // Display empty cart message
         cout << "The Cart is Empty Nothing to See Here" << endl;
     }
 
