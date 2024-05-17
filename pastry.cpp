@@ -1,4 +1,4 @@
-#include "pastry.h"
+#include "Pastry.h"
 #include <iostream>
 using namespace std;
 

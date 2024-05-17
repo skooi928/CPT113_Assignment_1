@@ -1,5 +1,5 @@
 #include <iostream>
-#include "shop.h"
+#include "Shop.h"
 using namespace std;
 
 // The main function is the entry point of the program.

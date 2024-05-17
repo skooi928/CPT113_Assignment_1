@@ -1,7 +1,7 @@
 #ifndef CART_H
 #define CART_H
-#include "pastry.h"
-#include "inventory.h"
+#include "Pastry.h"
+#include "Inventory.h"
 
 class Cart {
 private:

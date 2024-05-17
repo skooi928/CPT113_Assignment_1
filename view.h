@@ -1,8 +1,8 @@
 #ifndef VIEW_H
 #define VIEW_H
-#include "inventory.h"
-#include "pastry.h"
-#include "cart.h"
+#include "Inventory.h"
+#include "Pastry.h"
+#include "Cart.h"
 #include <string>
 using namespace std;
 

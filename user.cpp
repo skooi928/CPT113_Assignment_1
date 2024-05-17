@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "user.h"
+#include "User.h"
 using namespace std;
 
 // Constructor initializes username and password as empty strings

@@ -1,6 +1,6 @@
 #ifndef USER_H
 #define USER_H
-#include "cart.h"
+#include "Cart.h"
 #include <string>
 using namespace std;
 

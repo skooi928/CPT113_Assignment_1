@@ -1,6 +1,6 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-#include "pastry.h"
+#include "Pastry.h"
 
 class Inventory {
 private:

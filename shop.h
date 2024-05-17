@@ -1,9 +1,9 @@
 #ifndef SHOP_H
 #define SHOP_H
-#include "user.h"
-#include "view.h"
-#include "inventory.h"
-#include "pastry.h"
+#include "User.h"
+#include "View.h"
+#include "Inventory.h"
+#include "Pastry.h"
 
 class Shop {
 private:
