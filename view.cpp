@@ -98,6 +98,7 @@ bool View::validatePieceAndWeight(float userInput, float max) {
 
 bool View::validateOutofStock(int userInput, const Inventory& inventory) {
     Pastry* pastryList = inventory.getPastryList();
+    // If user still choice the items out of stock, it will display item sold out
     if (pastryList[userInput - 1].getPiece() <= 0) {
         cout << endl;
         cout << "Item sold out! Please select other variation." << endl;
@@ -411,6 +412,7 @@ int View::customerFoodMenuDisplay(const Inventory& inventory) {
                     << " " << pastryList[i].getType()
                     << " RM" << pastryList[i].getPPW() << "/kg RM"
                     << pastryList[i].getPPP() << "/pc";
+                // When inventory.txt there is run out of cake or cookie will display out of stock
                 if (pastryList[i].getPiece() <= 0) {
                     cout << " (Out of Stock!)";
                 }

@@ -77,6 +77,7 @@ bool Inventory::addPastryList(Pastry& newPastry) {
     for (int i = 0; i < (totalItemNo-1); i++) {
         newList[i] = pastryList[i];
     }
+    // Assign the new items inside newList
     newList[totalItemNo-1] = newPastry;
     delete[] pastryList;
     // Assign address of newList into pastryList 

@@ -61,7 +61,8 @@
     "ostream": "cpp",
     "*.tcc": "cpp",
     "iosfwd": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "new": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

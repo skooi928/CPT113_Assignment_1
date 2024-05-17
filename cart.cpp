@@ -22,20 +22,23 @@ void Cart::addToCart(Pastry newPastry) {
             return;
         }
     }
-    // Adding new item into cart 
+    // Adding new item into cart by creating a temp to store the choice of user input for cookie or cake
     amount++;
     Pastry* temp = new Pastry[amount];
     for (int i = 0; i < amount - 1; i++) {
         temp[i] = inCartItem[i];
     }
+    // Assign the new choice inside temp 
     temp[amount - 1] = newPastry;
     delete[] inCartItem;
+    // Assign address of temp into inCartItem 
     inCartItem = temp;
 }
 
 void Cart::deleteFromCart(int userInput) {
 
     amount--;
+    // Create a temp to store the choice of user input 
     Pastry* temp = new Pastry[amount];
     for (int i = 0; i < userInput - 1; i++) {
         temp[i] = inCartItem[i];
@@ -44,6 +47,7 @@ void Cart::deleteFromCart(int userInput) {
         temp[i] = inCartItem[i + 1];
     }
     delete[] inCartItem;
+    // Assign address of temp into inCartItem 
     inCartItem = temp;
 }
 
