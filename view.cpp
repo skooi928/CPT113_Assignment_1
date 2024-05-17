@@ -254,6 +254,9 @@ void View::staffFoodMenuDisplay(const Inventory& inventory) {
     cout << "---------------------------------------------------------" << "\n"
         << "|                      Inventory                          |" << "\n"
         << "----------------------------------------------------------" << "\n";
+    if(inventory.checkAllEmpty()){
+        cout << "No item in the inventory." << endl;
+    }
     Pastry* pastryList = inventory.getPastryList();
     int totalItemNumber = inventory.getItemNumber();
     for (int i = 0; i < totalItemNumber; i++) {
@@ -271,13 +274,14 @@ void View::staffFoodMenuDisplay(const Inventory& inventory) {
 }
 
 int View::readItemIdx(const Inventory& inventory) {
-    int idx;
-    do {
-        cout << "Enter index of item you would like to edit: ";
-        cin >> idx;
+    int idx = -1; // index = -1 to check if inventory is empty
+    if(!(inventory.checkAllEmpty())){
+        do {
+            cout << "Enter index of item you would like to edit: ";
+            cin >> idx;
 
-    } while (validateInput(idx, 1, inventory.getItemNumber()));
-
+        } while (validateInput(idx, 1, inventory.getItemNumber()));
+    }
     return idx;
 }
 
@@ -285,62 +289,66 @@ int View::inventoryEditDisplay(Inventory& inventory, int idx) {
     int choice;
     float weightperpiece, priceperweight, piece, weight;
     string type, flavour;
-    do {
-        cout << endl;
-        cout<< "-----------------------------------------------------" << "\n"
-            << "|                   Operation Menu                   |" << "\n"
-            << "-----------------------------------------------------" << "\n"
-            << "| 0. Exit                                            |" << "\n"
-            << "| 1. Type                                            |" << "\n"
-            << "| 2. Flavour                                         |" << "\n"
-            << "| 3. Piece                                           |" << "\n"
-            << "| 4. Weight                                          |" << "\n"
-            << "| 5. Price Per Weight                                |" << "\n"
-            << "-----------------------------------------------------" << endl;
-        cout << "Select operations: ";
-        cin >> choice;
-    } while (validateInput(choice, 0, 5));
+    if(idx != -1){
+        do {
+            cout << endl;
+            cout<< "-----------------------------------------------------" << "\n"
+                << "|                   Operation Menu                   |" << "\n"
+                << "-----------------------------------------------------" << "\n"
+                << "| 0. Exit                                            |" << "\n"
+                << "| 1. Type                                            |" << "\n"
+                << "| 2. Flavour                                         |" << "\n"
+                << "| 3. Piece                                           |" << "\n"
+                << "| 4. Weight                                          |" << "\n"
+                << "| 5. Price Per Weight                                |" << "\n"
+                << "-----------------------------------------------------" << endl;
+            cout << "Select operations: ";
+            cin >> choice;
+        } while (validateInput(choice, 0, 5));
 
-    Pastry* pastryList = inventory.getPastryList();
-    switch (choice) {
-    case 0:
-        return 0;
-        break;
-    case 1:
-        do {
-            cout << "Type: ";
-            cin >> type;
-        } while (editInfoValidation(type));
-        pastryList[idx - 1].setType(type);
-        break;
-    case 2:
-        cout << "Flavour: ";
-        cin >> flavour;
-        pastryList[idx - 1].setFlavour(flavour);
-        break;
-    case 3:
-        do {
-            cout << "Piece: ";
-            cin >> piece;
-        } while (editInfoValidation(piece));
-        pastryList[idx - 1].setPiece(piece);
-        pastryList[idx - 1].setWPP(pastryList[idx - 1].getWeight()/piece);
-        break;
-    case 4:
-        do {
-            cout << "Weight: ";
-            cin >> weight;
-        } while (editInfoValidation(weight));
-        pastryList[idx - 1].setWeight(weight);
-        pastryList[idx - 1].setWPP(weight/pastryList[idx - 1].getPiece());
-        break;
-    case 5:
-        do {
-            cout << "Price Per Weight: ";
-            cin >> priceperweight;
-        } while (editInfoValidation(priceperweight));
-        pastryList[idx - 1].setPPW(priceperweight);
-        break;
+        Pastry* pastryList = inventory.getPastryList();
+        switch (choice) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            do {
+                cout << "Type: ";
+                cin >> type;
+            } while (editInfoValidation(type));
+            pastryList[idx - 1].setType(type);
+            break;
+        case 2:
+            cout << "Flavour: ";
+            cin >> flavour;
+            pastryList[idx - 1].setFlavour(flavour);
+            break;
+        case 3:
+            do {
+                cout << "Piece: ";
+                cin >> piece;
+            } while (editInfoValidation(piece));
+            pastryList[idx - 1].setPiece(piece);
+            pastryList[idx - 1].setWPP(pastryList[idx - 1].getWeight()/piece);
+            break;
+        case 4:
+            do {
+                cout << "Weight: ";
+                cin >> weight;
+            } while (editInfoValidation(weight));
+            pastryList[idx - 1].setWeight(weight);
+            pastryList[idx - 1].setWPP(weight/pastryList[idx - 1].getPiece());
+            break;
+        case 5:
+            do {
+                cout << "Price Per Weight: ";
+                cin >> priceperweight;
+            } while (editInfoValidation(priceperweight));
+            pastryList[idx - 1].setPPW(priceperweight);
+            break;
+        }
+    }else{
+        cout << endl << "There's no item in the inventory! You cannot edit anything!" << endl;
     }
     return 1;
 }
